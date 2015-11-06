@@ -1,4 +1,4 @@
-# PVP-Plugins (TeamPvp-DeatchMatch-SingleBattle)
+# Mpvp (TeamPvp-DeatchMatch-SingleBattle)
 /pvp create - create a pvp.
 
 
@@ -20,7 +20,7 @@
 
 
  /pvp join - set join sign.
--------------------------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------------------
 #How To Be Made
 
 we will connect more than one pvp plugin together and customize their commands and modify them i know it is some how hard but it will be a very awesome plugin
