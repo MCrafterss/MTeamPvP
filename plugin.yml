@@ -1,6 +1,6 @@
 name: MTeamPvP
 version: 1.0 Beta
 api: [1.12.0]
-main: MCrafters\TeamPvP\Main
+main: MCrafters\TeamPvP\TeamPvP
 author: MCrafters
 load: POSTWORLD
