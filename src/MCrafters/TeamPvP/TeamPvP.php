@@ -25,6 +25,11 @@ use pocketmine\Player;
 
 class TeamPvP extends PluginBase implements Listener {
 
+   //Teams
+    public $red = [];
+    public $blue = [];
+    
+    
   public function onEnable(){
      //Initializing config files
      
@@ -36,5 +41,25 @@ class TeamPvP extends PluginBase implements Listener {
 
       $this->getServer()->getPluginManager()->registerEvents($this, $this);
       $this->getServer()->getLogger()->info(Color::BOLD . Color::GOLD . "M" . Color::AQUA . "TeamPvP " . Color::GREEN . "Enabled" . Color::RED . "!");
-      }
     }
+  public function isFriend($p1, $p2){
+    if(in_array($p1, $this->red, true) && in_array($p2, $this->red, true)){
+
+      return true;
+      
+    } else{
+
+      return false;
+
+    }
+     if(in_array($p1, $this->blue, true) && in_array($p2, $this->blue, true)){
+
+       return true;
+
+     } else{
+
+       return false;
+     }
+
+   }//isFriend
+}//Class
