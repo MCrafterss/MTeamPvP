@@ -1,11 +1,25 @@
 # PVP-Plugins (TeamPvp-DeatchMatch-SingleBattle)
-*/pvp create - create a pvp.
-*/pvp add - add pvp in world.
-*/pvp time - set max time of play.
-*/pvp lobby - set lobby.
-*/pvp wait - set waiting time in lobby.
-*/pvp score - set max score.
-*/pvp join - set join sign.
+/pvp create - create a pvp.
+
+
+ /pvp add - add pvp in world.
+
+
+ /pvp time - set max time of play.
+
+
+
+/pvp lobby - set lobby.
+
+
+
+ /pvp wait - set waiting time in lobby.
+
+
+ /pvp score - set max score.
+
+
+ /pvp join - set join sign.
 -------------------------------------------------------------------------------------------------------------------------
 #How To Be Made
 
