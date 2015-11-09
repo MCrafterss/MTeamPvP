@@ -1,5 +1,7 @@
 <?php
+
 namespace MCrafters\TeamPvP;
+
 use pocketmine\plugin\PluginBase;
 use pocketmine\utils\TextFormat as Color;
 use pocketmine\utils\Config;
@@ -66,10 +68,12 @@ class TeamPvP extends PluginBase implements Listener {
   public function setTeam($p, $team){
     $red  = array_search($p, array_keys($this->red));
     $blue = array_search($p, array_keys($this->blue));
+    
     if(strtolower($team) === "red"){
     unset($this->blue[$blue]);
     array_push($this->red, $p);
     }
+    
     if(strtolower($team) === "blue"){
       unset($this->red[$red]);
     array_push($this->blue, $p);
