@@ -83,4 +83,20 @@ class TeamPvP extends PluginBase implements Listener {
     array_push($this->blue, $p);
     }
   }
+
+
+  public function Interact(PlayerInteractEvent $event){
+  	$teams = array("red", "blue");
+  	$b = $event->getBlock();
+  	if($b->getX() === $this->yml["sign_join_x"] && $b->getY() === $this->yml["sign_join_y"] && $b->getZ() === $this->yml["sign_join_z"]){
+  		if(count($this->red < 5) && count($this->blue < 5)){
+  	$this->setTeam($event->getPlayer()->getName(), array_rand($teams, 1));
+
+  		}elseif(count($this->red < 5)){
+  		$this->setTeam($event->getPlayer()->getName(), "red");
+  	} elseif(count($this->blue) < 5){
+  		$this->setTeam($event->getPlayer()->getName(), "blue");
+  	} else {$event->getPlayer()->sendMessage("Teams are full");}
+  	}
+  }
 }//Class
