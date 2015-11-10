@@ -70,12 +70,16 @@ class TeamPvP extends PluginBase implements Listener {
     $blue = array_search($p, array_keys($this->blue));
     
     if(strtolower($team) === "red"){
+       if(isset($this->blue[$blue])){
     unset($this->blue[$blue]);
+       }
     array_push($this->red, $p);
     }
     
     if(strtolower($team) === "blue"){
+       if(isset($this->red[$red])){
       unset($this->red[$red]);
+       }
     array_push($this->blue, $p);
     }
   }
