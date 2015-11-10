@@ -10,6 +10,7 @@ use pocketmine\event\Event;
 use pocketmine\level\Position;
 use pocketmine\event\Listener;
 use pocketmine\Server;
+use pocketmine\event\entity\EntityDamageByEntityEvent;
 use pocketmine\level\Level;
 use pocketmine\event\player\PlayerInteractEvent;
 use pocketmine\event\player\PlayerMoveEvent;
@@ -86,17 +87,31 @@ class TeamPvP extends PluginBase implements Listener {
 
 
   public function Interact(PlayerInteractEvent $event){
-  	$teams = array("red", "blue");
-  	$b = $event->getBlock();
-  	if($b->getX() === $this->yml["sign_join_x"] && $b->getY() === $this->yml["sign_join_y"] && $b->getZ() === $this->yml["sign_join_z"]){
-  		if(count($this->red < 5) && count($this->blue < 5)){
-  	$this->setTeam($event->getPlayer()->getName(), array_rand($teams, 1));
+    $teams = array("red", "blue");
+    $b = $event->getBlock();
+    if($b->getX() === $this->yml["sign_join_x"] && $b->getY() === $this->yml["sign_join_y"] && $b->getZ() === $this->yml["sign_join_z"]){
+      if(count($this->red < 5) && count($this->blue < 5)){
+    $this->setTeam($event->getPlayer()->getName(), array_rand($teams, 1));
 
-  		}elseif(count($this->red < 5)){
-  		$this->setTeam($event->getPlayer()->getName(), "red");
-  	} elseif(count($this->blue) < 5){
-  		$this->setTeam($event->getPlayer()->getName(), "blue");
-  	} else {$event->getPlayer()->sendMessage("Teams are full");}
-  	}
+      }elseif(count($this->red < 5)){
+      $this->setTeam($event->getPlayer()->getName(), "red");
+      $event->getPlayer()->inGame = true;
+      $event->getPlayer()->teleport(new Vector3($this->yml["red_enter_x"], $this->yml["red_enter_y"], $this->yml["red_enter_z"]));
+    } elseif(count($this->blue) < 5){
+      $this->setTeam($event->getPlayer()->getName(), "blue");
+      $event->getPlayer()->inGame = true;
+      $event->getPlayer()->teleport(new Vector3($this->yml["blue_enter_x"], $this->yml["blue_enter_y"], $this->yml["blue_enter_z"]));
+    } else {
+      $event->getPlayer()->sendMessage("Teams are full");
+    }
+    }
   }
+
+public function edbee(EntityDamageByEntityEvent $event){
+  if(!isset($event->getPlayer()->inGame) && !isset($event->getAttacker()->inGame) && $this->isFriend($event->getAttacker()->getName(), $event->getPlayer()->getName())){
+    $event->setCancelled(true);
+    $event->getAttacker()->sendMessage($event->getPlayer()->getName() . " is in your team!");
+  }
+}
+
 }//Class
