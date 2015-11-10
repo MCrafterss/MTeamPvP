@@ -3,4 +3,12 @@
 sign_join_x: 
 sign_join_y: 
 sign_join_z:
+#the positions of the team's enter places.
+blue_enter_x: 
+blue_enter_y: 
+blue_enter_z: 
+
+red_enter_x: 
+red_enter_y: 
+red_enter_z: 
 ...
