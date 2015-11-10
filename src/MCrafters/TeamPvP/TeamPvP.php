@@ -10,7 +10,7 @@ use pocketmine\event\Event;
 use pocketmine\level\Position;
 use pocketmine\event\Listener;
 use pocketmine\Server;
-use pocketmine\event\entity\EntityDamageByEntityEvent;
+use pocketmine\event\entity\EntityDamageEvent;
 use pocketmine\level\Level;
 use pocketmine\event\player\PlayerInteractEvent;
 use pocketmine\event\player\PlayerMoveEvent;
@@ -107,11 +107,13 @@ class TeamPvP extends PluginBase implements Listener {
     }
   }
 
-public function edbee(EntityDamageByEntityEvent $event){
+public function edbee(EntityDamageEvent $event){
+   if($event instanceof EntityDamageByEntityEvent){
   if(!isset($event->getPlayer()->inGame) && !isset($event->getAttacker()->inGame) && $this->isFriend($event->getAttacker()->getName(), $event->getPlayer()->getName())){
     $event->setCancelled(true);
     $event->getAttacker()->sendMessage($event->getPlayer()->getName() . " is in your team!");
   }
+}
 }
 
 }//Class
