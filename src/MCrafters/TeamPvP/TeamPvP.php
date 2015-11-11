@@ -109,9 +109,9 @@ class TeamPvP extends PluginBase implements Listener {
 
 public function edbee(EntityDamageEvent $event){
    if($event instanceof EntityDamageByEntityEvent){
-  if(!isset($event->getPlayer()->inGame) && !isset($event->getAttacker()->inGame) && $this->isFriend($event->getAttacker()->getName(), $event->getPlayer()->getName())){
+  if(!isset($event->getEntity()->inGame) && !isset($event->getAttacker()->inGame) && $this->isFriend($event->getAttacker()->getName(), $event->getEntity()->getName())){
     $event->setCancelled(true);
-    $event->getAttacker()->sendMessage($event->getPlayer()->getName() . " is in your team!");
+    $event->getAttacker()->sendMessage($event->getEntity()->getName() . " is in your team!");
   }
 }
 }
