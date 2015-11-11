@@ -27,6 +27,7 @@ class TeamPvP extends PluginBase implements Listener {
    //Teams
     public $red = [];
     public $blue = [];
+    public $yml;
     
     
   public function onEnable(){
