@@ -11,6 +11,7 @@ use pocketmine\level\Position;
 use pocketmine\event\Listener;
 use pocketmine\Server;
 use pocketmine\event\entity\EntityDamageEvent;
+use pocketmine\event\entity\EntityDamageByEntityEvent;
 use pocketmine\level\Level;
 use pocketmine\event\player\PlayerInteractEvent;
 use pocketmine\event\player\PlayerMoveEvent;
@@ -108,13 +109,34 @@ class TeamPvP extends PluginBase implements Listener {
     }
   }
 
-public function edbee(EntityDamageEvent $event){
+public function EntityDamage(EntityDamageEvent $event){
    if($event instanceof EntityDamageByEntityEvent){
-  if(!isset($event->getEntity()->inGame) && !isset($event->getAttacker()->inGame) && $this->isFriend($event->getAttacker()->getName(), $event->getEntity()->getName())){
+  if($this->isFriend($event->getDamager()->getName(), $event->getEntity()->getName()) === true){
     $event->setCancelled(true);
-    $event->getAttacker()->sendMessage($event->getEntity()->getName() . " is in your team!");
+    $event->getDamager()->sendMessage($event->getEntity()->getName() . " is in your team!");
   }
 }
 }
 
+public function onCommand(CommandSender $sender, Command $cmd, $label, array $args){
+    $teams = array("red", "blue");
+switch($cmd->getName()){
+      case "team":
+      if(count($this->red < 5) && count($this->blue < 5)){
+    $this->setTeam($sender->getName(), "red");
+      $sender->inGame = true;
+$sender->teleport(new Vector3($this->yml["blue_enter_x"], $this->yml["blue_enter_y"], $this->yml["blue_enter_z"]));
+      }elseif(count($this->red < 5)){
+      $this->setTeam($sender->getName(), "red");
+      $sender->inGame = true;
+      $sender->teleport(new Vector3($this->yml["red_enter_x"], $this->yml["red_enter_y"], $this->yml["red_enter_z"]));
+    } elseif(count($this->blue) < 5){
+      $this->setTeam($sender->getName(), "blue");
+      $sender->inGame = true;
+      $sender->teleport(new Vector3($this->yml["blue_enter_x"], $this->yml["blue_enter_y"], $this->yml["blue_enter_z"]));
+    } else {
+      $sender->sendMessage("Teams are full");
+    }
+}
+}
 }//Class
