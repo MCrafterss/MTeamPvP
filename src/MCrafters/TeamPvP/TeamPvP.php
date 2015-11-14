@@ -144,16 +144,4 @@ class TeamPvP extends PluginBase implements Listener
             }
         }
     }
-
-
-    public function onCmd(PlayerCommandPreprocessEvent $event)
-    {
-        $cmd = explode(" ", $event->getMessage());
-        $player = $event->getPlayer();
-        foreach ($cmd as $a) {
-            if (stripos($cmd[0], '/') === 0) {
-                $this->getLogger()->warning($player . " has used " . $a);
-            }
-        }
-    }
 }//Class
