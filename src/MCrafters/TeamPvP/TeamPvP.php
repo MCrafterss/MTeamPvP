@@ -12,7 +12,6 @@ use pocketmine\event\player\PlayerInteractEvent;
 use pocketmine\math\Vector3;
 use pocketmine\command\Command;
 use pocketmine\command\CommandSender;
-use pocketmine\event\player\PlayerCommandPreprocessEvent;
 use pocketmine\Player;
 
 class TeamPvP extends PluginBase implements Listener
@@ -52,8 +51,9 @@ class TeamPvP extends PluginBase implements Listener
             return "red";
         } elseif (in_array($p, $this->blue)) {
             return "blue";
-        } else
+        } else {
             return false;
+        }
     }
 
     public function setTeam($p, $team)
@@ -62,12 +62,12 @@ class TeamPvP extends PluginBase implements Listener
             if ($this->getTeam($p) === "blue") {
                 unset($this->blue[$p]);
             }
-            array_push($this->red, $p);
+            array_push($this->red, $p => $p);
         } elseif (strtolower($team) === "blue") {
             if ($this->getTeam($p) === "red") {
                 unset($this->red[$p]);
             }
-            array_push($this->blue, $p);
+            array_push($this->blue, $p => $p);
         }
     }
 
@@ -101,9 +101,6 @@ class TeamPvP extends PluginBase implements Listener
                 if ($this->isFriend($event->getDamager()->getName(), $event->getEntity()->getName())) {
                     $event->setCancelled(true);
                     $event->getDamager()->sendMessage($event->getEntity()->getName() . " is in your team!");
-                } elseif (!$this->isFriend($event->getDamager()->getName(), $event->getEntity()->getName())) {
-                    $event->getDamager()->sendMessage("You hit " . $event->getEntity()->getName());
-                }
             }
         }
     }
