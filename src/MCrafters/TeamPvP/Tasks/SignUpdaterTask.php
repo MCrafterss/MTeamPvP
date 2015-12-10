@@ -27,8 +27,7 @@ public $f = 0;
         $this->f++;
         if($this->f > 15){
         $a = new \MCrafters\TeamPvP\TeamPvP();
-        $yml = $a->yml;
-        $t = $a->getServer()->getLevelByName($yml["sign_world"])->getTile(new Vector3($yml["sign_join_x"], $yml["sign_join_y"], $yml["sign_join_z"]));
+        $t = $a->getServer()->getLevelByName($a->yml["sign_world"])->getTile(new Vector3($a->yml["sign_join_x"], $a->yml["sign_join_y"], $a->yml["sign_join_z"]));
 
         if ($t instanceof Sign) {
             if ($a->gameStarted == true) {
