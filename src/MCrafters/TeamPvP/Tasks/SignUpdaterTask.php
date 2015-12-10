@@ -22,29 +22,30 @@ class SignUpdaterTask extends PluginTask
 
     public function onRun($tick)
     {
-        $yml = $this->getOwner()->yml;
-        $t = $this->getOwner()->getServer()->getLevelByName($yml["sign_world"])->getTile(new Vector3($yml["sign_join_x"], $yml["sign_join_y"], $yml["sign_join_z"]));
+        $a = new \MCrafters\TeamPvP\TeamPvP();
+        $yml = $a->yml;
+        $t = $a->getServer()->getLevelByName($yml["sign_world"])->getTile(new Vector3($yml["sign_join_x"], $yml["sign_join_y"], $yml["sign_join_z"]));
 
         if ($t instanceof Sign) {
-            if ($this->getOwner()->gameStarted == true) {
+            if ($a->gameStarted == true) {
                 $t->setText(
                     "§l§6Team§cPvP",
-                    "§l§cRed Team : " . count($this->getOwner()->reds),
-                    "§l§bBlue Team : " . count($this->getOwner()->blues),
+                    "§l§cRed Team : " . count($a->reds),
+                    "§l§bBlue Team : " . count($a->blues),
                     "§aStarted"
                 );
-            } elseif ($this->getOwner()->gameStarted == false && count($this->getOwner()->reds) < 5 && count($this->getOwner()->blues) < 5) {
+            } elseif ($a->gameStarted == false && count($a->reds) < 5 && count($a->blues) < 5) {
                 $t->setText(
                     "§l§6Team§cPvP",
-                    "§l§cRed Team : " . count($this->getOwner()->reds),
-                    "§l§bBlue Team : " . count($this->getOwner()->blues),
+                    "§l§cRed Team : " . count($a->reds),
+                    "§l§bBlue Team : " . count($a->blues),
                     "§aFull"
                 );
-            } elseif ($this->getOwner()->gameStarted == false && !count($this->getOwner()->reds) < 5 && !count($this->getOwner()->blues) < 5) {
+            } elseif ($a->gameStarted == false && !count($a->reds) < 5 && !count($a->blues) < 5) {
                 $t->setText(
                     "§l§6Team§cPvP",
-                    "§l§cRed Team : " . count($this->getOwner()->reds),
-                    "§l§bBlue Team : " . count($this->getOwner()->blues),
+                    "§l§cRed Team : " . count($a->reds),
+                    "§l§bBlue Team : " . count($a->blues),
                     "§aTap To Join!"
                 );
             }
