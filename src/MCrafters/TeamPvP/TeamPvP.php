@@ -17,6 +17,7 @@ use pocketmine\block\Block;
 use pocketmine\item\Item;
 use pocketmine\block\WallSign;
 use pocketmine\block\PostSign;
+use pocketmine\scheduler\ServerScheduler;
 
 class TeamPvP extends PluginBase implements Listener
 {
@@ -35,6 +36,7 @@ class TeamPvP extends PluginBase implements Listener
 
         $this->getLogger()->debug("Config files have been saved!");
 
+        $this->getServer()->getScheduler()->scheduleRepeatingTask(new SignUpdater($this), 15);
         $this->getServer()->getPluginManager()->registerEvents($this, $this);
         $this->getServer()->getLogger()->info(Color::BOLD . Color::GOLD . "M" . Color::AQUA . "TeamWars " . Color::GREEN . "Enabled" . Color::RED . "!");
     }
