@@ -4,6 +4,7 @@
 sign_join_x: 
 sign_join_y: 
 sign_join_z:
+sign_world: "world"
 
 #the positions of the team's enter places.
 blue_enter_x: 
@@ -19,9 +20,17 @@ waiting_place_x:
 waiting_place_y: 
 waiting_place_z: 
 
+#the items will be given to the players when the game starts
+items:
+ - 276
+ - 3 ##lol
+ 
 #the message will be sent to the player when he's hitting his team mate
 hit_same_team_message: "{player} is in your team!"
 
 #the message will be sent to the player when the teams are full
 teams_are_full_message: "Teams are full"
+
+#the level that we'll get it's spawn and teleport the player to it when the game ends
+spawn_level: "world"
 ...
