@@ -18,9 +18,10 @@ class GameStartTask extends PluginTask
 
     public $seconds = 15;
 
-    public function __construct(\MCrafters\TeamPvP\TeamPvP $n)
+    public function __construct(\MCrafters\TeamPvP\TeamPvP $plugin)
     {
-
+        parent::__construct($plugin);
+        $this->plugin = $plugin;
     }
 
     public function onRun($tick)
