@@ -25,7 +25,9 @@ class TeamPvP extends PluginBase implements Listener
     // Teams
     public $reds = [];
     public $blues = [];
+    public $gameStarted = false;
     public $yml;
+    
 
     public function onEnable()
     {
@@ -102,6 +104,8 @@ class TeamPvP extends PluginBase implements Listener
             if ($b instanceof WallSign || $b instanceof PostSign) {
                 if (count($this->blues) < 5 && count($this->reds) < 5) {
                     $this->setTeam($p->getName(), array_rand($teams, 1));
+                    $a = new GameManager();
+                    $a->run();
                 } else {
                     $p->sendMessage($this->yml["teams_are_full_message"]);
                 }
