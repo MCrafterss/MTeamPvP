@@ -15,9 +15,10 @@ use pocketmine\math\Vector3;
 class SignUpdaterTask extends PluginTask
 {
 
-    public function __construct(\MCrafters\TeamPvP\TeamPvP $n)
+    public function __construct(\MCrafters\TeamPvP\TeamPvP $plugin)
     {
-
+        parent::__construct($plugin, $player);
+        $this->plugin = $plugin;
     }
 
     public function onRun($tick)
