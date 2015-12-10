@@ -14,6 +14,11 @@ red_enter_x:
 red_enter_y: 
 red_enter_z: 
 
+#the place when players teleport when the game is going to start soon
+waiting_place_x: 
+waiting_place_y: 
+waiting_place_z: 
+
 #the message will be sent to the player when he's hitting his team mate
 hit_same_team_message: "{player} is in your team!"
 
