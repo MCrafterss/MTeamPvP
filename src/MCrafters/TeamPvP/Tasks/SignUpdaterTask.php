@@ -25,7 +25,7 @@ public $f = 0;
     public function onRun($tick)
     {
         $this->f++;
-        if($f > 15){
+        if($this->f > 15){
         $a = new \MCrafters\TeamPvP\TeamPvP();
         $yml = $a->yml;
         $t = $a->getServer()->getLevelByName($yml["sign_world"])->getTile(new Vector3($yml["sign_join_x"], $yml["sign_join_y"], $yml["sign_join_z"]));
