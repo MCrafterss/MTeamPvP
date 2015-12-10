@@ -17,10 +17,10 @@ class GameManager
         $this->blues = $a->blues;
 
         if (count($this->reds) < 5 && count($this->blues) < 5) {
-            $this->gst = Tasks::scheduleRepeatingTask(new GameStartTask($this), 20)->getTaskId();
+            $this->gst = Tasks::scheduleRepeatingTask(new Tasks\GameStartTask($this), 20)->getTaskId();
             Tasks::cancelTask($this->gwt);
         } else {
-            $this->gwt = Tasks::scheduleRepeatingTask(new GameWaitingTask($this), 15)->getTaskId();
+            $this->gwt = Tasks::scheduleRepeatingTask(new Tasks\GameWaitingTask($this), 15)->getTaskId();
         }
     }
 }
