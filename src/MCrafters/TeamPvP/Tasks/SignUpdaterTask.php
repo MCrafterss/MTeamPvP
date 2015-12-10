@@ -17,7 +17,7 @@ class SignUpdaterTask extends PluginTask
 
     public function __construct(\MCrafters\TeamPvP\TeamPvP $plugin)
     {
-        parent::__construct($plugin, $player);
+        parent::__construct($plugin);
         $this->plugin = $plugin;
     }
 
