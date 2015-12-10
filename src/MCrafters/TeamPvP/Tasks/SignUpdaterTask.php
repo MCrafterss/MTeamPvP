@@ -15,6 +15,7 @@ use pocketmine\math\Vector3;
 class SignUpdaterTask extends PluginTask
 {
 
+public $f = 0;
     public function __construct(\MCrafters\TeamPvP\TeamPvP $plugin)
     {
         parent::__construct($plugin);
@@ -23,6 +24,8 @@ class SignUpdaterTask extends PluginTask
 
     public function onRun($tick)
     {
+        $this->f++;
+        if($f > 15){
         $a = new \MCrafters\TeamPvP\TeamPvP();
         $yml = $a->yml;
         $t = $a->getServer()->getLevelByName($yml["sign_world"])->getTile(new Vector3($yml["sign_join_x"], $yml["sign_join_y"], $yml["sign_join_z"]));
@@ -49,6 +52,7 @@ class SignUpdaterTask extends PluginTask
                     "§l§bBlue Team : " . count($a->blues),
                     "§aTap To Join!"
                 );
+                }
             }
         }
     }
