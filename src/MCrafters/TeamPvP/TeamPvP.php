@@ -9,6 +9,7 @@ use pocketmine\event\Listener;
 use pocketmine\event\entity\EntityDamageEvent;
 use pocketmine\event\entity\EntityDamageByEntityEvent;
 use pocketmine\event\player\PlayerInteractEvent;
+use pocketmine\event\player\PlayerDeathEvent;
 use pocketmine\math\Vector3;
 use pocketmine\command\Command;
 use pocketmine\command\CommandSender;
@@ -27,7 +28,7 @@ class TeamPvP extends PluginBase implements Listener
     public $blues = [];
     public $gameStarted = false;
     public $yml;
-    
+
 
     public function onEnable()
     {
@@ -38,9 +39,9 @@ class TeamPvP extends PluginBase implements Listener
 
         $this->getLogger()->debug("Config files have been saved!");
 
-        $this->getServer()->getScheduler()->scheduleRepeatingTask(new SignUpdater($this), 15);
+        $this->getServer()->getScheduler()->scheduleRepeatingTask(new Tasks\SignUpdaterTask($this), 15);
         $this->getServer()->getPluginManager()->registerEvents($this, $this);
-        $this->getServer()->getLogger()->info(Color::BOLD . Color::GOLD . "M" . Color::AQUA . "TeamWars " . Color::GREEN . "Enabled" . Color::RED . "!");
+        $this->getServer()->getLogger()->info(Color::BOLD . Color::GOLD . "M" . Color::AQUA . "TeamPvP " . Color::GREEN . "Enabled" . Color::RED . "!");
     }
 
     public function isFriend($p1, $p2)
@@ -72,7 +73,7 @@ class TeamPvP extends PluginBase implements Listener
                     unset($this->blues[$p]);
                 }
                 $this->reds[$p] = $p;
-                $this->getServer()->getPlayer($p)->teleport(new Vector3($this->yml["red_enter_x"], $this->yml["red_enter_y"], $this->yml["red_enter_z"]));
+                $this->getServer()->getPlayer($p)->teleport(new Vector3($this->yml["waiting_x"], $this->yml["waiting_y"], $this->yml["waiting_z"]));
                 return true;
             } elseif (count($this->blues) < 5) {
                 $this->setTeam($p, "blue");
@@ -85,13 +86,24 @@ class TeamPvP extends PluginBase implements Listener
                     unset($this->reds[$p]);
                 }
                 $this->blues[$p] = $p;
-                $this->getServer()->getPlayer($p)->teleport(new Vector3($this->yml["blue_enter_x"], $this->yml["blue_enter_y"], $this->yml["blue_enter_z"]));
+                $this->getServer()->getPlayer($p)->teleport(new Vector3($this->yml["waiting_x"], $this->yml["waiting_y"], $this->yml["waiting_z"]));
                 return true;
             } elseif (count($this->reds) < 5) {
                 $this->setTeam($p, "red");
             } else {
                 return false;
             }
+        }
+    }
+
+    public function removeFromTeam($p, $team)
+    {
+        if (strtolower($team) == "red") {
+            unset($this->red[$p]);
+            return true;
+        } elseif (strtolower($team) == "blue") {
+            unset($this->blue[$p]);
+            return true;
         }
     }
 
@@ -104,8 +116,6 @@ class TeamPvP extends PluginBase implements Listener
             if ($b instanceof WallSign || $b instanceof PostSign) {
                 if (count($this->blues) < 5 && count($this->reds) < 5) {
                     $this->setTeam($p->getName(), array_rand($teams, 1));
-                    $a = new GameManager();
-                    $a->run();
                 } else {
                     $p->sendMessage($this->yml["teams_are_full_message"]);
                 }
@@ -117,11 +127,41 @@ class TeamPvP extends PluginBase implements Listener
     {
         if ($event instanceof EntityDamageByEntityEvent) {
             if ($event->getEntity() instanceof Player) {
-                if ($this->isFriend($event->getDamager()->getName(), $event->getEntity()->getName())) {
+                if ($this->isFriend($event->getDamager()->getName(), $event->getEntity()->getName()) && $this->gameStarted == true) {
                     $event->setCancelled(true);
                     $event->getDamager()->sendMessage(str_replace("{player}", $event->getPlayer()->getName(), $this->yml["hit_same_team_message"]));
+                }
+
+                if ($this->isFriend($event->getDamager()->getName(), $event->getEntity()->getName())) {
+                    $event->setCancelled(true);
                 }
             }
         }
     }
-}//Class
+
+    public function onDeath(PlayerDeathEvent $event)
+    {
+        if ($this->getTeam($event->getEntity()->getName()) == "red" && $this->gameStarted == true) {
+            $this->removeFromTeam($event->getEntity()->getName(), "red");
+            $event->getEntity()->teleport($this->getServer()->getLevelByName($this->yml["spawn_level"])->getSafeSpawn());
+        } elseif ($this->getTeam($event->getEntity()->getName()) == "blue" && $this->gameStarted == true) {
+            $this->removeFromTeam($event->getEntity()->getName(), "blue");
+            $event->getEntity()->teleport($this->getServer()->getLevelByName($this->yml["spawn_level"])->getSafeSpawn());
+        }
+        foreach ($this->blues as $b) {
+            foreach ($this->reds as $r) {
+                if (count($this->reds) == 0 && $this->gameStarted == true) {
+
+                    $this->getServer()->getPlayer($b)->getInventory()->clearAll();
+                    $this->removeFromTeam($b, "blue");
+                    $this->getServer()->getPlayer($b)->teleport($this->getServer()->getLevelByName($this->yml["spawn_level"])->getSafeSpawn());
+                    $this->getServer()->broadcastMessage("Blue Team won TeamPvP!");
+                } elseif (count($this->blues) == 0 && $this->gameStarted == true) {
+                    $this->getServer()->getPlayer($r)->getInventory()->clearAll();
+                    $this->removeFromTeam($r, "red");
+                    $this->getServer()->getPlayer($r)->teleport($this->getServer()->getLevelByName($this->yml["spawn_level"])->getSafeSpawn());
+                }
+            }
+        }
+    }
+}//class
