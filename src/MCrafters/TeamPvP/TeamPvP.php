@@ -39,7 +39,7 @@ class TeamPvP extends PluginBase implements Listener
 
         $this->getLogger()->debug("Config files have been saved!");
 
-        $this->getServer()->getScheduler()->scheduleRepeatingTask(new SignUpdaterTask($this), 15);
+        $this->getServer()->getScheduler()->scheduleRepeatingTask(new Tasks\SignUpdaterTask($this), 15);
         $this->getServer()->getPluginManager()->registerEvents($this, $this);
         $this->getServer()->getLogger()->info(Color::BOLD . Color::GOLD . "M" . Color::AQUA . "TeamPvP " . Color::GREEN . "Enabled" . Color::RED . "!");
     }
