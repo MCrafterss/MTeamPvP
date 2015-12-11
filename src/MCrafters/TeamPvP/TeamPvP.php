@@ -119,9 +119,10 @@ class TeamPvP extends PluginBase implements Listener
                 $this->setTeam($p->getName(), $teams[array_rand($teams, 1)]);
                 $s = new GameManager();
                 $s->run();
-            } else {
+                    } else {
                 $p->sendMessage($this->yml["teams_are_full_message"]);
             }
+        }
     }
 
     public function onEntityDamage(EntityDamageEvent $event)
