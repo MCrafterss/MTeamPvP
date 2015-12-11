@@ -23,7 +23,7 @@ waiting_z:
 #the items will be given to the players when the game starts
 items:
  - 276
- - 3 ##lol
+ - 3
  
 #the message will be sent to the player when he's hitting his team mate
 hit_same_team_message: "{player} is in your team!"
