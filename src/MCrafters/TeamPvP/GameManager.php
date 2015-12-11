@@ -10,7 +10,7 @@ class GameManager
     public $gst;
     public $gwt;
 
-   public function __construct(TeamPvP $plugin)
+   public function __construct(\MCrafters\TeamPvP\TeamPvP $plugin, \MCrafters\TeamPvP\TeamPvP)
     {
         parent::__construct($plugin);
         $this->plugin = $plugin;
