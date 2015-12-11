@@ -11,6 +11,7 @@ use pocketmine\event\entity\EntityDamageByEntityEvent;
 use pocketmine\event\player\PlayerInteractEvent;
 use pocketmine\event\player\PlayerDeathEvent;
 use pocketmine\math\Vector3;
+use pocketmine\level\Position;
 use pocketmine\command\Command;
 use pocketmine\command\CommandSender;
 use pocketmine\Player;
@@ -113,14 +114,14 @@ class TeamPvP extends PluginBase implements Listener
     {
         $p = $event->getPlayer();
         $teams = array("red", "blue");
-        $b = $event->getBlock();
-        if ($b->getX() === $this->yml["sign_join_x"] && $b->getY() === $this->yml["sign_join_y"] && $b->getZ() === $this->yml["sign_join_z"]) {
+        if ($event->getBlock()->getX() === $this->yml["sign_join_x"] && $event->getBlock()->getY() === $this->yml["sign_join_y"] && $event->getBlock()->getZ() === $this->yml["sign_join_z"]) {
             if (count($this->blues) < 5 && count($this->reds) < 5) {
                 $this->setTeam($p->getName(), $teams[array_rand($teams, 1)]);
+                $s = new GameManager();
+                $s->run();
             } else {
                 $p->sendMessage($this->yml["teams_are_full_message"]);
             }
-        }
     }
 
     public function onEntityDamage(EntityDamageEvent $event)
