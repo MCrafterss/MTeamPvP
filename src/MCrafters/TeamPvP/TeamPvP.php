@@ -140,7 +140,6 @@ class TeamPvP extends PluginBase implements Listener
                 }
             }
         }
-    }
     
 
     public function onDeath(PlayerDeathEvent $event)
