@@ -135,10 +135,12 @@ class TeamPvP extends PluginBase implements Listener
 
                 if ($this->isFriend($event->getDamager()->getName(), $event->getEntity()->getName())) {
                     $event->setCancelled(true);
+                     }
                 }
             }
         }
     }
+    
 
     public function onDeath(PlayerDeathEvent $event)
     {
