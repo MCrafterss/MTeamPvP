@@ -112,13 +112,11 @@ class TeamPvP extends PluginBase implements Listener
         $p = $event->getPlayer();
         $teams = array("red", "blue");
         $b = $event->getBlock();
-        if ($b->getX() === $this->yml["sign_join_x"] && $b->getY() === $this->yml["sign_join_y"] && $b->getZ() === $this->yml["sign_join_z"] && $b->getLevel()->getName() == $this->yml["sign_world"]) {
-            if ($b instanceof WallSign || $b instanceof PostSign) {
+        if ($b->getX() === $this->yml["sign_join_x"] && $b->getY() === $this->yml["sign_join_y"] && $b->getZ() === $this->yml["sign_join_z"]) {
                 if (count($this->blues) < 5 && count($this->reds) < 5) {
-                    $this->setTeam($p->getName(), array_rand($teams, 1));
+                    $this->setTeam($p->getName(), $teams[array_rand($teams, 1)]);
                 } else {
                     $p->sendMessage($this->yml["teams_are_full_message"]);
-                }
             }
         }
     }
