@@ -28,19 +28,18 @@ class GameStartTask extends PluginTask
     {
         $this->seconds = $this->seconds - 1;
 
-        $a = new \MCrafters\TeamPvP\TeamPvP();
-        foreach ($a->reds as $r) {
-            foreach ($a->blues as $b) {
-                foreach ($a->yml["items"] as $i) {
+        foreach ($this->plugin->reds as $r) {
+            foreach ($this->plugin->blues as $b) {
+                foreach ($this->plugin->yml["items"] as $i) {
                     Server::getInstance()->getPlayer($r)->sendPopup("§eThe game will start in $this->seconds second(s)!");
                     Server::getInstance()->getPlayer($b)->sendPopup("§eThe game will start in $this->seconds second(s)!");
 
                     if ($this->seconds == 1) {
-                        Server::getInstance()->getPlayer($r)->teleport(new Vector3($a->yml["red_enter_x"], $a->yml["red_enter_y"], $a->yml["red_enter_z"]));
-                        Server::getInstance()->getPlayer($b)->teleport(new Vector3($a->yml["blue_enter_x"], $a->yml["blue_enter_y"], $a->yml["blue_enter_z"]));
+                        Server::getInstance()->getPlayer($r)->teleport(new Vector3($this->plugin->yml["red_enter_x"], $this->plugin->yml["red_enter_y"], $this->plugin->yml["red_enter_z"]));
+                        Server::getInstance()->getPlayer($b)->teleport(new Vector3($this->plugin->yml["blue_enter_x"], $this->plugin->yml["blue_enter_y"], $this->plugin->yml["blue_enter_z"]));
                         Server::getInstance()->getPlayer($r)->getInventory()->addItem(Item::get($i));
                         Server::getInstance()->getPlayer($b)->getInventory()->addItem(Item::get($i));
-                        $a->gameStarted = true;
+                        $this->plugin->gameStarted = true;
                         $this->seconds = 15;
                         Tasks::cancelTask($this->getTaskId());
                     }
