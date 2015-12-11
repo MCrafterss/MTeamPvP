@@ -70,9 +70,10 @@ class TeamPvP extends PluginBase implements Listener
         if (strtolower($team) === "red") {
             if (count($this->reds) < 5) {
                 if ($this->getTeam($p) === "blue") {
-                    unset($this->blues[$p]);
+                    unset($this->blues[array_search($p, $this->blues)]);
                 }
-                $this->reds[$p] = $p;
+                array_push($this->reds, $p);
+                $this->getServer()->getPlayer($p)->setNameTag("§c§l" . $p);
                 $this->getServer()->getPlayer($p)->teleport(new Vector3($this->yml["waiting_x"], $this->yml["waiting_y"], $this->yml["waiting_z"]));
                 return true;
             } elseif (count($this->blues) < 5) {
@@ -83,9 +84,10 @@ class TeamPvP extends PluginBase implements Listener
         } elseif (strtolower($team) === "blue") {
             if (count($this->blues) < 5) {
                 if ($this->getTeam($p) === "red") {
-                    unset($this->reds[$p]);
+                    unset($this->reds[array_search($p, $this->reds)]);
                 }
-                $this->blues[$p] = $p;
+                array_push($this->blues, $p);
+                $this->getServer()->getPlayer($p)->setNameTag("§b§l" . $p);
                 $this->getServer()->getPlayer($p)->teleport(new Vector3($this->yml["waiting_x"], $this->yml["waiting_y"], $this->yml["waiting_z"]));
                 return true;
             } elseif (count($this->reds) < 5) {
@@ -99,10 +101,10 @@ class TeamPvP extends PluginBase implements Listener
     public function removeFromTeam($p, $team)
     {
         if (strtolower($team) == "red") {
-            unset($this->red[$p]);
+            unset($this->reds[array_search($p, $this->reds)]);
             return true;
         } elseif (strtolower($team) == "blue") {
-            unset($this->blue[$p]);
+            unset($this->blues[array_search($p, $this->blues)]);
             return true;
         }
     }
@@ -113,10 +115,10 @@ class TeamPvP extends PluginBase implements Listener
         $teams = array("red", "blue");
         $b = $event->getBlock();
         if ($b->getX() === $this->yml["sign_join_x"] && $b->getY() === $this->yml["sign_join_y"] && $b->getZ() === $this->yml["sign_join_z"]) {
-                if (count($this->blues) < 5 && count($this->reds) < 5) {
-                    $this->setTeam($p->getName(), $teams[array_rand($teams, 1)]);
-                } else {
-                    $p->sendMessage($this->yml["teams_are_full_message"]);
+            if (count($this->blues) < 5 && count($this->reds) < 5) {
+                $this->setTeam($p->getName(), $teams[array_rand($teams, 1)]);
+            } else {
+                $p->sendMessage($this->yml["teams_are_full_message"]);
             }
         }
     }
