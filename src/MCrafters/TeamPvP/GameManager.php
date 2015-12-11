@@ -10,11 +10,17 @@ class GameManager
     public $gst;
     public $gwt;
 
+   public function __construct(TeamPvP $plugin)
+    {
+        parent::__construct($plugin);
+        $this->plugin = $plugin;
+    }
+    
+    
     public function run()
     {
-        $a = new TeamPvP();
-        $this->reds = $a->reds;
-        $this->blues = $a->blues;
+        $this->reds = $this->plugin->reds;
+        $this->blues = $this->plugin->blues;
 
         if (count($this->reds) < 5 && count($this->blues) < 5) {
             $this->gst = Tasks::scheduleRepeatingTask(new Tasks\GameStartTask($this), 20)->getTaskId();
