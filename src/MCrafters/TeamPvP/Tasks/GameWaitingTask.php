@@ -23,9 +23,8 @@ class GameWaitingTask extends PluginTask
 
     public function onRun($tick)
     {
-        $a = new \MCrafters\TeamPvP\TeamPvP();
-        foreach ($a->reds as $r) {
-            foreach ($a->blues as $b) {
+        foreach ($this->plugin->reds as $r) {
+            foreach ($this->plugin->blues as $b) {
                 Server::getInstance()->getPlayer($r)->sendPopup("§eWaiting for players..");
                 Server::getInstance()->getPlayer($b)->sendPopup("§eWaiting for players..");
             }
