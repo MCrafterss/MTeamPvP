@@ -27,28 +27,28 @@ public $f = 0;
         $this->f++;
         if($this->f > 15){
         $a = new \MCrafters\TeamPvP\TeamPvP();
-        $t = $a->getServer()->getLevelByName($a->yml["sign_world"])->getTile(new Vector3($a->yml["sign_join_x"], $a->yml["sign_join_y"], $a->yml["sign_join_z"]));
+        $t = Server::getInstance()->getLevelByName($this->plugin->yml["sign_world"])->getTile(new Vector3($this->plugin->yml["sign_join_x"], $this->plugin->yml["sign_join_y"], $this->plugin->yml["sign_join_z"]));
 
         if ($t instanceof Sign) {
-            if ($a->gameStarted == true) {
+            if ($this->plugin->gameStarted == true) {
                 $t->setText(
                     "§l§6Team§cPvP",
-                    "§l§cRed Team : " . count($a->reds),
-                    "§l§bBlue Team : " . count($a->blues),
+                    "§l§cRed Team : " . count($this->plugin->reds),
+                    "§l§bBlue Team : " . count($this->plugin->blues),
                     "§aStarted"
                 );
-            } elseif ($a->gameStarted == false && count($a->reds) < 5 && count($a->blues) < 5) {
+            } elseif ($this->plugin->gameStarted == false && count($this->plugin->reds) < 5 && count($this->plugin->blues) < 5) {
                 $t->setText(
                     "§l§6Team§cPvP",
-                    "§l§cRed Team : " . count($a->reds),
-                    "§l§bBlue Team : " . count($a->blues),
+                    "§l§cRed Team : " . count($this->plugin->reds),
+                    "§l§bBlue Team : " . count($this->plugin->blues),
                     "§aFull"
                 );
-            } elseif ($a->gameStarted == false && !count($a->reds) < 5 && !count($a->blues) < 5) {
+            } elseif ($this->plugin->gameStarted == false && !count($this->plugin->reds) < 5 && !count($this->plugin->blues) < 5) {
                 $t->setText(
                     "§l§6Team§cPvP",
-                    "§l§cRed Team : " . count($a->reds),
-                    "§l§bBlue Team : " . count($a->blues),
+                    "§l§cRed Team : " . count($this->plugin->reds),
+                    "§l§bBlue Team : " . count($this->plugin->blues),
                     "§aTap To Join!"
                 );
                 }
