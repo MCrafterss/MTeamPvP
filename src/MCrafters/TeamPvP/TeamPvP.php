@@ -39,6 +39,17 @@ class TeamPvP extends PluginBase implements Listener
         $this->yml = $yml->getAll();
 
         $this->getLogger()->debug("Config files have been saved!");
+        
+    $level = $this->yml["sign_world"];
+    
+    if(!$this->getServer()->isLevelGenerated($level)){
+      $this->getLogger()->error("The level you used on the config ( " . $level . " ) doesn't exist! stopping plugin...");
+      $this->getServer()->getPluginManager()->disablePlugin($this->getServer()->getPluginManager()->getPlugin("MTeamPvP"));
+    }
+    
+    if(!$this->getServer()->isLevelLoaded($level)){
+      $this->getServer()->loadLevel($level);
+    }
 
         $this->getServer()->getScheduler()->scheduleRepeatingTask(new Tasks\SignUpdaterTask($this), 15);
         $this->getServer()->getPluginManager()->registerEvents($this, $this);
