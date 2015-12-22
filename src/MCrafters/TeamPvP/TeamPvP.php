@@ -115,11 +115,11 @@ class TeamPvP extends PluginBase implements Listener
         $p = $event->getPlayer();
         $teams = array("red", "blue");
         if ($event->getBlock()->getX() === $this->yml["sign_join_x"] && $event->getBlock()->getY() === $this->yml["sign_join_y"] && $event->getBlock()->getZ() === $this->yml["sign_join_z"]) {
-            if (count($this->blues) < 5 && count($this->reds) < 5) {
+            if (count($this->blues) !== 5 and count($this->reds) !== 5) {
                 $this->setTeam($p->getName(), $teams[array_rand($teams, 1)]);
                 $s = new GameManager();
                 $s->run();
-                    } else {
+            } else {
                 $p->sendMessage($this->yml["teams_are_full_message"]);
             }
         }
@@ -136,11 +136,11 @@ class TeamPvP extends PluginBase implements Listener
 
                 if ($this->isFriend($event->getDamager()->getName(), $event->getEntity()->getName())) {
                     $event->setCancelled(true);
-                     }
                 }
             }
         }
-    
+    }
+
 
     public function onDeath(PlayerDeathEvent $event)
     {
@@ -163,6 +163,7 @@ class TeamPvP extends PluginBase implements Listener
                     $this->getServer()->getPlayer($r)->getInventory()->clearAll();
                     $this->removeFromTeam($r, "red");
                     $this->getServer()->getPlayer($r)->teleport($this->getServer()->getLevelByName($this->yml["spawn_level"])->getSafeSpawn());
+                    $this->gameStarted = false;
                 }
             }
         }
