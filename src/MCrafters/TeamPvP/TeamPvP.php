@@ -29,8 +29,6 @@ class TeamPvP extends PluginBase implements Listener
     public $blues = [];
     public $gameStarted = false;
     public $yml;
-    public $gst;
-    public $gwt;
 
 
     public function onEnable()
@@ -41,6 +39,17 @@ class TeamPvP extends PluginBase implements Listener
         $this->yml = $yml->getAll();
 
         $this->getLogger()->debug("Config files have been saved!");
+        
+    $level = $this->yml["sign_world"];
+    
+    if(!$this->getServer()->isLevelGenerated($level)){
+      $this->getLogger()->error("The level you used on the config ( " . $level . " ) doesn't exist! stopping plugin...");
+      $this->getServer()->getPluginManager()->disablePlugin($this->getServer()->getPluginManager()->getPlugin("MTeamPvP"));
+    }
+    
+    if(!$this->getServer()->isLevelLoaded($level)){
+      $this->getServer()->loadLevel($level);
+    }
 
         $this->getServer()->getScheduler()->scheduleRepeatingTask(new Tasks\SignUpdaterTask($this), 15);
         $this->getServer()->getPluginManager()->registerEvents($this, $this);
@@ -74,7 +83,6 @@ class TeamPvP extends PluginBase implements Listener
             if (count($this->reds) < 5) {
                 if ($this->getTeam($p) === "blue") {
                     unset($this->blues[array_search($p, $this->blues)]);
-                    unset($this->reds[array_search($p, $this->reds)]);
                 }
                 array_push($this->reds, $p);
                 $this->getServer()->getPlayer($p)->setNameTag("§c§l" . $p);
@@ -89,7 +97,6 @@ class TeamPvP extends PluginBase implements Listener
             if (count($this->blues) < 5) {
                 if ($this->getTeam($p) === "red") {
                     unset($this->reds[array_search($p, $this->reds)]);
-                    unset($this->blues[array_search($p, $this->blues)]);
                 }
                 array_push($this->blues, $p);
                 $this->getServer()->getPlayer($p)->setNameTag("§b§l" . $p);
@@ -114,18 +121,6 @@ class TeamPvP extends PluginBase implements Listener
         }
     }
 
-     
-    public function manageGame()
-    {
-
-        if (count($this->reds) == 5 && count($this->blues) == 5) {
-            $this->gst = $this->getServer()->getScheduler()->scheduleRepeatingTask(new \MCrafters\TeamPvP\Tasks\GameStartTask($this), 20)->getTaskId();
-            $this->getServer()->getScheduler()->cancelTask($this->gwt);
-        } else {
-            $this->gwt = $this->getServer()->getScheduler()->scheduleRepeatingTask(new \MCrafters\TeamPvP\Tasks\GameWaitingTask($this), 15)->getTaskId();
-        }
-    }
-
     public function onInteract(PlayerInteractEvent $event)
     {
         $p = $event->getPlayer();
@@ -133,18 +128,13 @@ class TeamPvP extends PluginBase implements Listener
         if ($event->getBlock()->getX() === $this->yml["sign_join_x"] && $event->getBlock()->getY() === $this->yml["sign_join_y"] && $event->getBlock()->getZ() === $this->yml["sign_join_z"]) {
             if (count($this->blues) !== 5 and count($this->reds) !== 5) {
                 $this->setTeam($p->getName(), $teams[array_rand($teams, 1)]);
-                $this->manageGame();
-                foreach($this->blues as $b){
-                    foreach($this->reds as $r){
-                        echo "Reds : $r";
-                        echo "Blues : $b";
-                    }
-                }
+                $s = new GameManager();
+                $s->run();
             } else {
                 $p->sendMessage($this->yml["teams_are_full_message"]);
             }
-      }
-}
+        }
+    }
 
     public function onEntityDamage(EntityDamageEvent $event)
     {
@@ -157,11 +147,11 @@ class TeamPvP extends PluginBase implements Listener
 
                 if ($this->isFriend($event->getDamager()->getName(), $event->getEntity()->getName())) {
                     $event->setCancelled(true);
-                     }
                 }
             }
         }
-    
+    }
+
 
     public function onDeath(PlayerDeathEvent $event)
     {
