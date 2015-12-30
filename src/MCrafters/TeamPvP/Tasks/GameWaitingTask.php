@@ -15,7 +15,7 @@ use pocketmine\math\Vector3;
 class GameWaitingTask extends PluginTask
 {
 
-    public function __construct(\MCrafters\TeamPvP\GameManager $plugin)
+    public function __construct(\MCrafters\TeamPvP\TeamPvP $plugin)
     {
         parent::__construct($plugin);
         $this->plugin = $plugin;
