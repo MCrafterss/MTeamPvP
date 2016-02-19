@@ -26,8 +26,7 @@ class SignUpdaterTask extends PluginTask
     {
         $this->f++;
         if($this->f > 15){
-            $a = new \MCrafters\TeamPvP\TeamPvP();
-            $t = Server::getInstance()->getLevelByName($this->plugin->yml["sign_world"])->getTile(new Vector3($this->plugin->yml["sign_join_x"], $this->plugin->yml["sign_join_y"], $this->plugin->yml["sign_join_z"]));
+            $t = $this->plugin->getServer()->getLevelByName($this->plugin->yml["sign_world"])->getTile(new Vector3($this->plugin->yml["sign_join_x"], $this->plugin->yml["sign_join_y"], $this->plugin->yml["sign_join_z"]));
 
             if ($t instanceof Sign) {
                 if ($this->plugin->gameStarted == true) {
