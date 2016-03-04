@@ -6,19 +6,15 @@ use pocketmine\plugin\PluginBase;
 use pocketmine\utils\TextFormat as Color;
 use pocketmine\utils\Config;
 use pocketmine\event\Listener;
-use pocketmine\event\entity\EntityDamageEvent;
-use pocketmine\event\entity\EntityDamageByEntityEvent;
-use pocketmine\event\player\PlayerInteractEvent;
-use pocketmine\event\player\PlayerDeathEvent;
+use pocketmine\event\entity\{EntityDamageEvent, EntityDamageByEntityEvent};
+use pocketmine\event\player\{PlayerDeathEvent, PlayerInteractEvent};
 use pocketmine\math\Vector3;
 use pocketmine\level\Position;
-use pocketmine\command\Command;
-use pocketmine\command\CommandSender;
+use pocketmine\command\{Command, CommandSender};
 use pocketmine\Player;
 use pocketmine\block\Block;
 use pocketmine\item\Item;
-use pocketmine\block\WallSign;
-use pocketmine\block\PostSign;
+use pocketmine\block\{WallSign, PostSign};
 use pocketmine\scheduler\ServerScheduler;
 
 class TeamPvP extends PluginBase implements Listener
