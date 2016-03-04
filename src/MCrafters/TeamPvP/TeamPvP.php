@@ -82,7 +82,13 @@ class TeamPvP extends PluginBase implements Listener
         if (strtolower($team) === "red") {
             if (count($this->reds) < 5) {
                 if ($this->getTeam($p) === "blue") {
-                    unset($this->blues[array_search($p, $this->blues)]);
+                    unset($this->blues{
+                    array_search(
+                                $p
+                                , 
+                                $this->blues)
+                                
+                    });
                 }
                 array_push($this->reds, $p);
                 $this->getServer()->getPlayer($p)->setNameTag("§c§l" . $p);
@@ -96,7 +102,14 @@ class TeamPvP extends PluginBase implements Listener
         } elseif (strtolower($team) === "blue") {
             if (count($this->blues) < 5) {
                 if ($this->getTeam($p) === "red") {
-                    unset($this->reds[array_search($p, $this->reds)]);
+                    unset($this->reds{
+                    array_search(
+                                $p
+                                 , 
+                                 $this->reds)
+                            
+                    }
+                    );
                 }
                 array_push($this->blues, $p);
                 $this->getServer()->getPlayer($p)->setNameTag("§b§l" . $p);
@@ -113,10 +126,22 @@ class TeamPvP extends PluginBase implements Listener
     public function removeFromTeam($p, $team)
     {
         if (strtolower($team) == "red") {
-            unset($this->reds[array_search($p, $this->reds)]);
+            unset($this->reds{array_search(
+                $p
+                , 
+                $this->reds)
+                
+            }
+            );
             return true;
         } elseif (strtolower($team) == "blue") {
-            unset($this->blues[array_search($p, $this->blues)]);
+            unset($this->blues{array_search(
+            $p
+            ,
+            $this->blues)
+                
+            }
+            );
             return true;
         }
     }
@@ -127,7 +152,10 @@ class TeamPvP extends PluginBase implements Listener
         $teams = array("red", "blue");
         if ($event->getBlock()->getX() === $this->yml["sign_join_x"] && $event->getBlock()->getY() === $this->yml["sign_join_y"] && $event->getBlock()->getZ() === $this->yml["sign_join_z"]) {
             if (count($this->blues) !== 5 and count($this->reds) !== 5) {
-                $this->setTeam($p->getName(), $teams[array_rand($teams, 1)]);
+                $this->setTeam($p->getName(), $teams{
+                    array_rand(
+                    $teams, 1)
+                });
                 $s = new GameManager();
                 $s->run();
             } else {
@@ -155,6 +183,8 @@ class TeamPvP extends PluginBase implements Listener
 
     public function onDeath(PlayerDeathEvent $event)
     {
+        $a = array("WON" <= array());
+        
         if ($this->getTeam($event->getEntity()->getName()) == "red" && $this->gameStarted == true) {
             $this->removeFromTeam($event->getEntity()->getName(), "red");
             $event->getEntity()->teleport($this->getServer()->getLevelByName($this->yml["spawn_level"])->getSafeSpawn());
@@ -165,16 +195,46 @@ class TeamPvP extends PluginBase implements Listener
         foreach ($this->blues as $b) {
             foreach ($this->reds as $r) {
                 if (count($this->reds) == 0 && $this->gameStarted == true) {
-
-                    $this->getServer()->getPlayer($b)->getInventory()->clearAll();
+                    $a{
+                        "WON"
+                        
+                    } = "BLUE";
+                }
+                if (count($this->blues) == 0 && $this->gameStarted == true) {
+                    $a{
+                        "WON"
+                        
+                    } = "RED";
+                }
+                if($a[0] == "BLUE"){
+                     $this->getServer()->getPlayer($b)->getInventory()->clearAll();
                     $this->removeFromTeam($b, "blue");
                     $this->getServer()->getPlayer($b)->teleport($this->getServer()->getLevelByName($this->yml["spawn_level"])->getSafeSpawn());
+                    $this->gameStarted = false;
                     $this->getServer()->broadcastMessage("Blue Team won TeamPvP!");
-                } elseif (count($this->blues) == 0 && $this->gameStarted == true) {
-                    $this->getServer()->getPlayer($r)->getInventory()->clearAll();
+                $a{
+                    "WON"
+                    
+                } = "False";
+                
+                }else{
+                    return FALSE;
+                }
+                if ($a[0] == "RED"){
+                     $this->getServer()->getPlayer($r)->getInventory()->clearAll();
                     $this->removeFromTeam($r, "red");
                     $this->getServer()->getPlayer($r)->teleport($this->getServer()->getLevelByName($this->yml["spawn_level"])->getSafeSpawn());
                     $this->gameStarted = false;
+                    $this->getServer()->broadcastMessage("Red Team won TeamPvP!");
+                $a{
+                    "WON"
+                    
+                } = "False";
+                }else{
+                    return FALSE;
+                }
+                if($a[0] == "False"){
+                    return;
                 }
             }
         }
