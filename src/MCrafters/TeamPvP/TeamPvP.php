@@ -207,7 +207,6 @@ class TeamPvP extends PluginBase implements Listener
                     } = "RED";
                 }
                 if($a[0] == "BLUE"){
-                     $this->getServer()->getPlayer($b)->getInventory()->clearAll();
                     $this->removeFromTeam($b, "blue");
                     $this->getServer()->getPlayer($b)->teleport($this->getServer()->getLevelByName($this->yml["spawn_level"])->getSafeSpawn());
                     $this->gameStarted = false;
@@ -221,7 +220,6 @@ class TeamPvP extends PluginBase implements Listener
                     return FALSE;
                 }
                 if ($a[0] == "RED"){
-                     $this->getServer()->getPlayer($r)->getInventory()->clearAll();
                     $this->removeFromTeam($r, "red");
                     $this->getServer()->getPlayer($r)->teleport($this->getServer()->getLevelByName($this->yml["spawn_level"])->getSafeSpawn());
                     $this->gameStarted = false;
