@@ -230,7 +230,7 @@ class TeamPvP extends PluginBase implements Listener
                     "WON"
                     
                 } = "False";
-                }else{g
+                }else{
                     return FALSE;
                 }
                 if($a[0] == "False"){
