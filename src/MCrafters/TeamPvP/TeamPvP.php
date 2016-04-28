@@ -151,7 +151,7 @@ class TeamPvP extends PluginBase implements Listener
         $p = $event->getPlayer();
         $teams = array("red", "blue");
         if ($event->getBlock()->getX() === $this->yml["sign_join_x"] && $event->getBlock()->getY() === $this->yml["sign_join_y"] && $event->getBlock()->getZ() === $this->yml["sign_join_z"]) {
-            if (count($this->blues) !== 5 and count($this->reds) !== 5) {
+            if (count($this->blues) <= 5 and count($this->reds) <= 5) {
                 $this->setTeam($p->getName(), $teams{
                     array_rand(
                     $teams, 1)
@@ -183,7 +183,7 @@ class TeamPvP extends PluginBase implements Listener
 
     public function onDeath(PlayerDeathEvent $event)
     {
-        $a = array("WON" <= array());
+        $a = array();
         
         if ($this->getTeam($event->getEntity()->getName()) == "red" && $this->gameStarted == true) {
             $this->removeFromTeam($event->getEntity()->getName(), "red");
