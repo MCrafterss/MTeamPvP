@@ -5,4 +5,4 @@
 ###The Information board is going to be soon here
 
 
-##Plugin Is Having some errors that need to be fixed so it is not recommended to use the plugin
+##We Need Testers Please Test and then start an issue aboiut the error you found or if you found the plugin working
