@@ -10,11 +10,12 @@ use pocketmine\scheduler\Task;
 use pocketmine\scheduler\ServerScheduler;
 use pocketmine\level\Position;
 use pocketmine\math\Vector3;
+use pocketmine\plugin\Plugin;
 
 class GameWaitingTask extends PluginTask
 {
 
-    public function __construct(\MCrafters\TeamPvP\TeamPvP $plugin)
+    public function __construct(Plugin $plugin)
     {
         parent::__construct($plugin);
         $this->plugin = $plugin;
