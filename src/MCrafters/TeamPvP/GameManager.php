@@ -2,7 +2,9 @@
 namespace MCrafters\TeamPvP;
 use pocketmine\scheduler\ServerScheduler as Tasks;
 use pocketmine\Server;
-class GameManager
+use pocketmine\plugin\PluginBase;
+
+class GameManager extends PluginBase
 {
     public $reds;
     public $blues;
