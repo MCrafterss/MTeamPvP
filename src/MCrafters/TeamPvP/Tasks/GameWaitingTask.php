@@ -11,7 +11,7 @@ use pocketmine\scheduler\ServerScheduler;
 use pocketmine\level\Position;
 use pocketmine\math\Vector3;
 use pocketmine\plugin\Plugin;
-use MCrafters\TeamPvP\TeamPvP
+use MCrafters\TeamPvP\TeamPvP;
 
 class GameWaitingTask extends PluginTask
 {
