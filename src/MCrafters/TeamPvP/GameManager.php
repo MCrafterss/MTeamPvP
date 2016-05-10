@@ -15,14 +15,13 @@ class GameManager extends PluginBase
     {
         $team = new \MCrafters\TeamPvP\TeamPvP();
 
-        $this->plugin = $team;
-        $this->reds = $this->plugin->reds;
-        $this->blues = $this->plugin->blues;
+        $this->reds = $team->reds;
+        $this->blues = $team->blues;
         if (count($this->reds) == 5 && count($this->blues) == 5) {
-            $this->gst = Server::getInstance()->getScheduler()->scheduleRepeatingTask(new \MCrafters\TeamPvP\Tasks\GameStartTask($this), 20)->getTaskId();
+            $this->gst = Server::getInstance()->getScheduler()->scheduleRepeatingTask(new \MCrafters\TeamPvP\Tasks\GameStartTask($team), 20)->getTaskId();
             Server::getInstance()->getScheduler()->cancelTask($this->gwt);
         } else {
-            $this->gwt = Server::getInstance()->getScheduler()->scheduleRepeatingTask(new \MCrafters\TeamPvP\Tasks\GameWaitingTask($this), 15)->getTaskId();
+            $this->gwt = Server::getInstance()->getScheduler()->scheduleRepeatingTask(new \MCrafters\TeamPvP\Tasks\GameWaitingTask($team), 15)->getTaskId();
         }
     }
 }
