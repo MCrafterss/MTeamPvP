@@ -14,7 +14,7 @@ class GameManager extends PluginBase
     public function run()
     {
         $team = new \MCrafters\TeamPvP\TeamPvP();
-        $manager = new \MCrafters\TeamPvP\GameManager($team);
+
         $this->plugin = $team;
         $this->reds = $this->plugin->reds;
         $this->blues = $this->plugin->blues;
