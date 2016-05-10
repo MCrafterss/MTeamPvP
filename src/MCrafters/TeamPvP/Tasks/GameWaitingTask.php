@@ -15,6 +15,8 @@ use MCrafters\TeamPvP\TeamPvP;
 
 class GameWaitingTask extends PluginTask
 {
+    
+    private $plugin;
 
     public function __construct(TeamPvP $plugin)
     {
