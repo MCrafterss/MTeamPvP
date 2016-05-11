@@ -19,7 +19,6 @@ use pocketmine\block\Block;
 use pocketmine\item\Item;
 use pocketmine\block\WallSign;
 use pocketmine\block\PostSign;
-use pocketmine\event\block\SignChangeEvent;
 use pocketmine\scheduler\ServerScheduler;
 
 class TeamPvP extends PluginBase implements Listener
@@ -164,25 +163,6 @@ class TeamPvP extends PluginBase implements Listener
             }
         }
     }
-	
-  public function onSignChange(SignChangeEvent $event){
-	  $sign = $event->getLine(0);
-      if($sign == "[teampvp]"){
-	  $egb = $event->getBlock();
-	  $this->egb = new Vector3($egb->getX(),$egb->getY(),$egb->getZ());
-	  $x = $this->egb->getX();
-	  $y = $this->egb->getY();
-	  $z = $this->egb->getZ();
-	  $this->getConfig()->set("sign_join_x", $x);
-	  $this->getConfig()->save();
-	  $this->getConfig()->set("sign_join_y", $y);
-	  $this->getConfig()->save();
-	  $this->getConfig()->set("sign_join_z", $z);
-	  $this->getConfig()->save();
-	  $event->setLine(0, Color::BOLD . Color::GRAY . "[" . Color::AQUA . "Team" . Color::GOLD . "PvP" . Color::GRAY . "]");
-	  $event->setLine(2, Color::BOLD . Color::GREEN . "Tap To Play");
-  }
-  }
 
     public function onEntityDamage(EntityDamageEvent $event)
     {
