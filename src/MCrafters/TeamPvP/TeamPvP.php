@@ -39,7 +39,6 @@ class TeamPvP extends PluginBase implements Listener
         $yml = new Config($this->getDataFolder() . "config.yml", Config::YAML);
         $this->yml = $yml->getAll();
         $this->getLogger()->debug("Config files have been saved!");
-		@mkdir($this->getDataFolder());
         
     $level = $this->yml["sign_world"];
     
@@ -182,8 +181,7 @@ class TeamPvP extends PluginBase implements Listener
 	  $event->setLine(0, Color::BOLD . Color::GRAY . "[" . Color::AQUA . "Team" . Color::GOLD . "PvP" . Color::GRAY . "]");
 	  $event->setLine(2, Color::BOLD . Color::GREEN . "Tap To Play");
 	  $worldname = $egb->getLevel()->getName();
-	  $this->getConfig()->set("sign_world", "$worldname");
-	  $this->getConfig()->save();
+	  $this->getConfig()->set("sign_world", $worldname);
   }
   }
 

@@ -1,9 +1,10 @@
 ---
+
 #the positions of the join sign
 sign_join_x: 
 sign_join_y: 
 sign_join_z:
-sign_world: world
+sign_world: "world"
 
 #the positions of the team's enter places.
 blue_enter_x: 
@@ -23,6 +24,7 @@ waiting_z:
 items:
  - 276
  - 3
+ 
 #the message will be sent to the player when he's hitting his team mate
 hit_same_team_message: "{player} is in your team!"
 
