@@ -1,0 +1,21 @@
+---
+sign_join_x: 128
+sign_join_y: 4
+sign_join_z: 125
+sign_world: world56555
+blue_enter_x: ~
+blue_enter_y: ~
+blue_enter_z: ~
+red_enter_x: ~
+red_enter_y: ~
+red_enter_z: ~
+waiting_x: ~
+waiting_y: ~
+waiting_z: ~
+items:
+- 276
+- 3
+hit_same_team_message: '{player} is in your team!'
+teams_are_full_message: Teams are full
+spawn_level: world
+...
