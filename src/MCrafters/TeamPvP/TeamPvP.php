@@ -259,23 +259,5 @@ class TeamPvP extends PluginBase implements Listener
                 }
             }
         }
-	}
-		public function onCommand(CommandSender $sender,Command $command,$label,array $args){
-			if($command->getName() == "teampvp"){
-			if(isset($args[0])){
-				if(isset($args[1])){
-				if($args[0] == "set"){
-					if ($args[1] == "blue"){
-	  $this->sender = new Vector3($sender->getX(),$sender->getY(),$sender->getZ());
-	  $x = $this->sender->getX();
-	  $y = $this->sender->getY();
-	  $z = $this->sender->getZ();
-	  
-						
-					}
-				}
     }
-}
-		}
-	}
 }//class
