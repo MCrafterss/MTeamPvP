@@ -26,8 +26,8 @@ class TeamPvP extends PluginBase implements Listener
 {
 
     // Teams
-    public $reds = [];
-    public $blues = [];
+    public $reds = array();
+    public $blues = array();
     public $gameStarted = false;
     public $yml;
 
