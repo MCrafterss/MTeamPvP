@@ -1,6 +1,9 @@
-name: MTeamPvP
+name: MTeam-PvP
 version: 1.0.0 Beta
 api: [1.14.0, 2.0.0]
 main: MCrafters\TeamPvP\TeamPvP
-author: Nawaf_Craft1b.IPocket.AmiroEmad
+author: MCrafters (PocketKiller / NawafCraft1b / AmirEmad)
 load: POSTWORLD
+commands:
+teampvp:
+description: Main TeamPvP Command
