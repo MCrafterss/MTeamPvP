@@ -1,4 +1,4 @@
-name: MTeamPvP
+name: MTeam-PvP
 version: 1.0.0 Beta
 api: [1.14.0, 2.0.0]
 main: MCrafters\TeamPvP\TeamPvP
