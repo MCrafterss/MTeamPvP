@@ -5,4 +5,4 @@
 ###The Information board is going to be soon here
 
 
-##We Need Testers Please Test and then start an issue aboiut the error you found or if you found the plugin working
+##Plugin is in Development Mode Please be patient
