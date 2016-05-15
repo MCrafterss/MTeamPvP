@@ -173,7 +173,7 @@ $event->setLine(2, Color::BOLD . Color::GREEN . "Tap To Play");
                 $this->setTeam($p->getName(), $teams){
                     array_rand(
                     $teams, 1)
-                });
+                };
                 $s = new GameManager();
                 $s->run();
             } else {
