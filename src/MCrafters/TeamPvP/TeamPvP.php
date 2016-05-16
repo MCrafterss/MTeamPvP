@@ -15,7 +15,6 @@ use pocketmine\level\Position;
 use pocketmine\command\Command;
 use pocketmine\command\CommandSender;
 use pocketmine\Player;
-use pocketmine\IPlayer;
 use pocketmine\block\Block;
 use pocketmine\item\Item;
 use pocketmine\block\WallSign;
@@ -171,10 +170,10 @@ $event->setLine(2, Color::BOLD . Color::GREEN . "Tap To Play");
         $teams = array("red", "blue");
         if ($event->getBlock()->getX() === $this->yml["sign_join_x"] && $event->getBlock()->getY() === $this->yml["sign_join_y"] && $event->getBlock()->getZ() === $this->yml["sign_join_z"]) {
             if (count($this->blues) <= 5 and count($this->reds) <= 5) {
-                $this->setTeam($p, $teams){
+                $this->setTeam($p, $teams{
                     array_rand(
                     $teams, 1)
-                };
+                });
                 $s = new GameManager();
                 $s->run();
             } else {
