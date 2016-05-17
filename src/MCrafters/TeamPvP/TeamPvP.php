@@ -112,22 +112,19 @@ $event->setLine(2, Color::BOLD . Color::GREEN . "Tap To Play");
                 $this->getServer()->getPlayer($p)->setNameTag(Color::BOLD . Color::RED . $p->getName());
                 $this->getServer()->getPlayer($p)->teleport(new Vector3($this->yml["waiting_x"], $this->yml["waiting_y"], $this->yml["waiting_z"]));
                 return true;
-            } elseif (count($this->blues) < 5) {
+            } 
+            elseif (count($this->blues) < 5) {
                 $this->setTeam($p, "blue");
-            } else {
-                return false;
             }
-        } elseif (strtolower($team) === "blue") {
+        }
+        if (strtolower($team) === "blue") {
             if (count($this->blues) < 5) {
                 if ($this->getTeam($p) === "red") {
                     unset($this->reds{
                     array_search(
                                 $p
                                  , 
-                                 $this->reds)
-                            
-                    }
-                    );
+                                 $this->reds)});
                 }
                 array_push($this->blues, $p);
                 $this->getServer()->getPlayer($p)->setNameTag(Color::BOLD . Color::AQUA . $p->getName());
@@ -135,9 +132,6 @@ $event->setLine(2, Color::BOLD . Color::GREEN . "Tap To Play");
                 return true;
             } elseif (count($this->reds) < 5) {
                 $this->setTeam($p, "red");
-            } else {
-                return false;
-            }
         }
     }
 
