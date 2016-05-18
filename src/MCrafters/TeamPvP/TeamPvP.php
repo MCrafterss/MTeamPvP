@@ -134,7 +134,7 @@ $event->setLine(2, Color::BOLD . Color::GREEN . "Tap To Play");
                 $this->setTeam($p, "red");
         }
     }
-
+}
     public function removeFromTeam($p, $team)
     {
         if (strtolower($team) == "red") {
