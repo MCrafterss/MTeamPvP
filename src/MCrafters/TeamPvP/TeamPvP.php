@@ -41,16 +41,16 @@ class TeamPvP extends PluginBase implements Listener
 
         $this->getLogger()->debug("Config files have been saved!");
         
-    $level = $this->yml["sign_world"];
+        $level = $this->yml["sign_world"];
     
-    if(!$this->getServer()->isLevelGenerated($level)){
-      $this->getLogger()->error("The level you used on the config ( " . $level . " ) doesn't exist! stopping plugin...");
-      $this->getServer()->getPluginManager()->disablePlugin($this->getServer()->getPluginManager()->getPlugin("MTeamPvP"));
-    }
+        if(!$this->getServer()->isLevelGenerated($level)){
+         $this->getLogger()->error("The level you used on the config ( " . $level . " ) doesn't exist! stopping plugin...");
+         $this->getServer()->getPluginManager()->disablePlugin($this->getServer()->getPluginManager()->getPlugin("MTeamPvP"));
+        }
     
-    if(!$this->getServer()->isLevelLoaded($level)){
-      $this->getServer()->loadLevel($level);
-    }
+        if(!$this->getServer()->isLevelLoaded($level)){
+        $this->getServer()->loadLevel($level);
+        }
 
         $this->getServer()->getScheduler()->scheduleRepeatingTask(new Tasks\SignUpdaterTask($this), 15);
         $this->getServer()->getPluginManager()->registerEvents($this, $this);
@@ -221,28 +221,28 @@ class TeamPvP extends PluginBase implements Listener
                     $this->removeFromTeam($b, "blue");
                     $this->getServer()->getPlayer($b)->teleport($this->getServer()->getLevelByName($this->yml["spawn_level"])->getSafeSpawn());
                     $this->gameStarted = false;
-                    $this->getServer()->broadcastMessage("Blue Team won TeamPvP!");
+                    $this->getServer()->broadcastMessage("Blue Team won the game!");
                 $a{
                     "WON"
                     
-                } = "False";
+                } = false;
                 
                 }else{
-                    return FALSE;
+                    return false;
                 }
                 if ($a[0] == "RED"){
                     $this->removeFromTeam($r, "red");
                     $this->getServer()->getPlayer($r)->teleport($this->getServer()->getLevelByName($this->yml["spawn_level"])->getSafeSpawn());
                     $this->gameStarted = false;
-                    $this->getServer()->broadcastMessage("Red Team won TeamPvP!");
+                    $this->getServer()->broadcastMessage("Red Team won the game!");
                 $a{
                     "WON"
                     
-                } = "False";
+                } = false;
                 }else{
-                    return FALSE;
+                    return false;
                 }
-                if($a[0] == "False"){
+                if($a[0] == false){
                     return;
                 }
             }
