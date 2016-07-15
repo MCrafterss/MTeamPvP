@@ -24,9 +24,9 @@ waiting_z:
 items:
  - 276
  - 3
- 
+
 #the message will be sent to the player when he's hitting his team mate
-hit_same_team_message: "{player} is in your team!"
+teammate_message: "{player} is in your team!"
 
 #the message will be sent to the player when the teams are full
 teams_are_full_message: "Teams are full"

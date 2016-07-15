@@ -181,7 +181,7 @@ class TeamPvP extends PluginBase implements Listener
             if ($event->getEntity() instanceof Player) {
                 if ($this->isFriend($event->getDamager()->getName(), $event->getEntity()->getName()) && $this->gameStarted == true) {
                     $event->setCancelled(true);
-                    $event->getDamager()->sendMessage(str_replace("{player}", $event->getPlayer()->getName(), $this->yml["hit_same_team_message"]));
+                    $event->getDamager()->sendMessage(str_replace("{player}", $event->getPlayer()->getName(), $this->yml["teammate_message"]));
                 }
 
                 if ($this->isFriend($event->getDamager()->getName(), $event->getEntity()->getName())) {
@@ -248,4 +248,4 @@ class TeamPvP extends PluginBase implements Listener
             }
         }
     }
-}//class
+}

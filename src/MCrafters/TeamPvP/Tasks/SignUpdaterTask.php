@@ -16,6 +16,7 @@ class SignUpdaterTask extends PluginTask
 {
 
     public $f = 0;
+
     public function __construct(\MCrafters\TeamPvP\TeamPvP $plugin)
     {
         parent::__construct($plugin);
@@ -25,6 +26,7 @@ class SignUpdaterTask extends PluginTask
     public function onRun($tick)
     {
         $this->f++;
+
         if($this->f > 15){
             $t = $this->plugin->getServer()->getLevelByName($this->plugin->yml["sign_world"])->getTile(new Vector3($this->plugin->yml["sign_join_x"], $this->plugin->yml["sign_join_y"], $this->plugin->yml["sign_join_z"]));
 
@@ -54,4 +56,4 @@ class SignUpdaterTask extends PluginTask
             }
         }
     }
-}//Class
+}

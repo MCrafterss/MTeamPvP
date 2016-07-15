@@ -15,7 +15,7 @@ use pocketmine\math\Vector3;
 class GameStartTask extends PluginTask
 {
 
-    public $seconds = 15;
+    private $seconds = 15;
     private $plugin;
 
     public function __construct(\MCrafters\TeamPvP\TeamPvP $plugin)
@@ -31,8 +31,8 @@ class GameStartTask extends PluginTask
         foreach ($this->plugin->reds as $r) {
             foreach ($this->plugin->blues as $b) {
                 foreach ($this->plugin->yml["items"] as $i) {
-                    $this->plugin->getServer()->getPlayer($r)->sendPopup("§eThe game will start in {$this->seconds} ".($this->seconds<=1?"second":"seconds"));
-                    $this->plugin->getServer()->getPlayer($b)->sendPopup("§eThe game will start in {$this->seconds} ".($this->seconds<=1?"second":"seconds"));
+                    $this->plugin->getServer()->getPlayer($r)->sendPopup("§eThe game will start in {$this->seconds} ".($this->seconds <= 1 ? "second" : "seconds"));
+                    $this->plugin->getServer()->getPlayer($b)->sendPopup("§eThe game will start in {$this->seconds} ".($this->seconds <= 1 ? "second" : "seconds"));
 
                     if ($this->seconds == 1) {
                         getPlayer($r)->teleport(new Vector3($this->plugin->yml["red_enter_x"], $this->plugin->yml["red_enter_y"], $this->plugin->yml["red_enter_z"]));

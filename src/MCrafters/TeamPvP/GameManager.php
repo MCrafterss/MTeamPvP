@@ -1,5 +1,6 @@
 <?php
 namespace MCrafters\TeamPvP;
+
 use pocketmine\scheduler\ServerScheduler as Tasks;
 use pocketmine\Server;
 use pocketmine\plugin\PluginBase;
