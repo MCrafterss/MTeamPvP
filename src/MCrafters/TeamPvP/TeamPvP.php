@@ -10,6 +10,7 @@ use pocketmine\event\entity\EntityDamageEvent;
 use pocketmine\event\entity\EntityDamageByEntityEvent;
 use pocketmine\event\player\PlayerDeathEvent;
 use pocketmine\event\player\PlayerInteractEvent;
+use pocketmine\event\player\PlayerQuitEvent;
 use pocketmine\math\Vector3;
 use pocketmine\level\Position;
 use pocketmine\command\Command;
@@ -190,18 +191,32 @@ class TeamPvP extends PluginBase implements Listener
             }
         }
     }
-
-
+    
+    public function onQuit(PlayerQuitEvent $event)
+    {
+     if ($this->getTeam($event->getPlayer()->getName()) == "red" || $this->getTeam($event->getPlayer()->getName()) == "blue" && $this->gameStarted == true) {
+      $this->checkForEnd($event->getPlayer());
+     }
+    }
+    
     public function onDeath(PlayerDeathEvent $event)
+    {
+     if ($this->getTeam($event->getEntity()->getName()) == "red" || $this->getTeam($event->getEntity()->getName()) == "blue" && $this->gameStarted == true) {
+      $this->checkForEnd($event->getEntity());
+     }
+    }
+
+
+    public function checkForEnd(Player $player)
     {
         $a = array();
         
-        if ($this->getTeam($event->getEntity()->getName()) == "red" && $this->gameStarted == true) {
-            $this->removeFromTeam($event->getEntity()->getName(), "red");
-            $event->getEntity()->teleport($this->getServer()->getLevelByName($this->yml["spawn_level"])->getSafeSpawn());
-        } elseif ($this->getTeam($event->getEntity()->getName()) == "blue" && $this->gameStarted == true) {
-            $this->removeFromTeam($event->getEntity()->getName(), "blue");
-            $event->getEntity()->teleport($this->getServer()->getLevelByName($this->yml["spawn_level"])->getSafeSpawn());
+        if ($this->getTeam($player->getName()) == "red" && $this->gameStarted == true) {
+            $this->removeFromTeam($player->getName(), "red");
+            $player->teleport($this->getServer()->getLevelByName($this->yml["spawn_level"])->getSafeSpawn());
+        } elseif ($this->getTeam($player->getName()) == "blue" && $this->gameStarted == true) {
+            $this->removeFromTeam($player->getName(), "blue");
+            $player->teleport($this->getServer()->getLevelByName($this->yml["spawn_level"])->getSafeSpawn());
         }
         foreach ($this->blues as $b) {
             foreach ($this->reds as $r) {
