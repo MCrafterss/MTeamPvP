@@ -1,55 +1,49 @@
 <?php
+namespace MCrafters\TeamPvP\Arena;
 
-namespace MCrafters\TeamPvP;
-
-use pocketmine\plugin\PluginBase;
+use pocketmine\event\Listener;
+use pocketmine\Player;
 use pocketmine\utils\TextFormat as Color;
 use pocketmine\utils\Config;
-use pocketmine\event\Listener;
 use pocketmine\event\entity\EntityDamageEvent;
 use pocketmine\event\entity\EntityDamageByEntityEvent;
 use pocketmine\event\player\PlayerDeathEvent;
 use pocketmine\event\player\PlayerInteractEvent;
 use pocketmine\event\player\PlayerQuitEvent;
 use pocketmine\math\Vector3;
-use pocketmine\Player;
- 
-class TeamPvP extends PluginBase implements Listener
-{
 
-    // Teams
-    public $reds = array();
-    public $blues = array();
+use MCrafters\TeamPvP\Loader;
+use MCrafters\TeamPvP\GameManager;
+use MCrafters\TeamPvP\Tasks\SignUpdaterTask;
+
+class Arena implements Listener {
+
+	public $name;
+	private $plugin;
+	public $yml;
+	public $reds = [];
+    public $blues = [];
     public $gameStarted = false;
-    public $yml;
+	
 
+	public function __construct(string $name, Loader $plugin){
+		$this->name = $name;
+		$this->plugin = $plugin;
+		$this->yml = $plugin->arenas[$name];
 
-    public function onEnable()
-    {
-        // Initializing config files
-        $this->saveResource("config.yml");
-        $yml = new Config($this->getDataFolder() . "config.yml", Config::YAML);
-        $this->yml = $yml->getAll();
-
-        $this->getLogger()->debug("Config files have been saved!");
-        
         $level = $this->yml["sign_world"];
-    
-        if(!$this->getServer()->isLevelGenerated($level)){
-         $this->getLogger()->error("The level you used on the config ( " . $level . " ) doesn't exist! stopping plugin...");
-         $this->getServer()->getPluginManager()->disablePlugin($this->getServer()->getPluginManager()->getPlugin("MTeamPvP"));
-        }
-    
+
         if(!$this->getServer()->isLevelLoaded($level)){
-        $this->getServer()->loadLevel($level);
+            $this->getServer()->loadLevel($level);
         }
 
-        $this->getServer()->getScheduler()->scheduleRepeatingTask(new Tasks\SignUpdaterTask($this), 15);
-        $this->getServer()->getPluginManager()->registerEvents($this, $this);
-        $this->getServer()->getLogger()->info(Color::BOLD . Color::GOLD . "M" . Color::AQUA . "TeamPvP " . Color::GREEN . "Enabled" . Color::RED . "!");
-    }
+		$plugin->getServer()->loadLevel($this->yml["world"]);
 
-    public function isFriend($p1, $p2)
+		$plugin->getServer()->getScheduler()->scheduleRepeatingTask(new SignUpdaterTask($this, $this->plugin), 5);
+
+	}
+
+ public function isFriend($p1, $p2)
     {
         if ($this->getTeam($p1) === $this->getTeam($p2) && $this->getTeam($p1) !== false) {
             return true;
@@ -142,7 +136,7 @@ class TeamPvP extends PluginBase implements Listener
                     array_rand(
                     $teams, 1)
                 });
-                $s = new GameManager();
+                $s = new GameManager($this, $this->plugin);
                 $s->run();
             } else {
                 $p->sendMessage($this->yml["teams_are_full_message"]);
@@ -236,5 +230,9 @@ class TeamPvP extends PluginBase implements Listener
                 }
             }
         }
+    }
+
+    public function getServer(){
+    	return $this->plugin->getServer();
     }
 }

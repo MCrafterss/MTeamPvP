@@ -18,9 +18,9 @@ class GameWaitingTask extends PluginTask
     
     private $plugin;
 
-    public function __construct(TeamPvP $plugin)
+    public function __construct(TeamPvP $plugin, \MCrafters\TeamPvP\Loader $c)
     {
-        parent::__construct($plugin);
+        parent::__construct($c);
         $this->plugin = $plugin;
     }
 

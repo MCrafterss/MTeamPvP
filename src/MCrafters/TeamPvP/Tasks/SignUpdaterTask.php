@@ -17,9 +17,9 @@ class SignUpdaterTask extends PluginTask
 
     public $f = 0;
 
-    public function __construct(\MCrafters\TeamPvP\TeamPvP $plugin)
+    public function __construct(\MCrafters\TeamPvP\Arena\Arena $plugin, \MCrafters\TeamPvP\Loader $c)
     {
-        parent::__construct($plugin);
+        parent::__construct($c);
         $this->plugin = $plugin;
     }
 
@@ -45,7 +45,7 @@ class SignUpdaterTask extends PluginTask
                         "§l§bBlue Team : " . count($this->plugin->blues),
                         "§aFull"
                     );
-                } elseif ($this->plugin->gameStarted == false && !count($this->plugin->reds) < 5 && !count($this->plugin->blues) < 5) {
+                } elseif ($this->plugin->gameStarted == false && !(count($this->plugin->reds)) < 5 && !(count($this->plugin->blues)) < 5) {
                     $t->setText(
                         "§l§6Team§cPvP",
                         "§l§cRed Team : " . count($this->plugin->reds),

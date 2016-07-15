@@ -18,9 +18,9 @@ class GameStartTask extends PluginTask
     private $seconds = 15;
     private $plugin;
 
-    public function __construct(\MCrafters\TeamPvP\TeamPvP $plugin)
+    public function __construct(\MCrafters\TeamPvP\Arena\Arena $plugin, \MCrafters\TeamPvP\Loader $c)
     {
-        parent::__construct($plugin);
+        parent::__construct($c);
         $this->plugin = $plugin;
     }
 
@@ -41,7 +41,7 @@ class GameStartTask extends PluginTask
                         $this->plugin->getServer()->getPlayer($b)->getInventory()->addItem(Item::fromString($i));
                         $this->plugin->gameStarted = true;
                         $this->seconds = 15;
-                        Tasks::cancelTask($this->getTaskId());
+                        $this->plugin->getServer()->getScheduler()->cancelTask($this->getTaskId());
                     }
                 }
             }

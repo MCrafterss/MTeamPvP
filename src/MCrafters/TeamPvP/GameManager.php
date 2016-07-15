@@ -11,18 +11,24 @@ class GameManager extends PluginBase
     public $blues;
     public $gst;
     public $gwt;
-     
+    private $plugin;
+
+    public function __construct(MCrafters\TeamPvP\arena\Arena $plugin, MCrafters\TeamPvP\Loader $m){
+        $this->plugin = $plugin;
+        $this->m = $m;
+    }
+
     public function run()
     {
-        $team = new \MCrafters\TeamPvP\TeamPvP();
 
-        $this->reds = $team->reds;
-        $this->blues = $team->blues;
+        $this->reds = $this->plugin->reds;
+        $this->blues = $this->plugin->blues;
+
         if (count($this->reds) == 5 && count($this->blues) == 5) {
-            $this->gst = Server::getInstance()->getScheduler()->scheduleRepeatingTask(new \MCrafters\TeamPvP\Tasks\GameStartTask($team), 20)->getTaskId();
-            Server::getInstance()->getScheduler()->cancelTask($this->gwt);
+            $this->gst = $this->plugin->getServer()->getScheduler()->scheduleRepeatingTask(new \MCrafters\TeamPvP\Tasks\GameStartTask($this->plugin, $this->m), 20)->getTaskId();
+            $this->plugin->getServer()->getScheduler()->cancelTask($this->gwt);
         } else {
-            $this->gwt = Server::getInstance()->getScheduler()->scheduleRepeatingTask(new \MCrafters\TeamPvP\Tasks\GameWaitingTask($team), 15)->getTaskId();
+            $this->gwt = $this->plugin->getServer()->getScheduler()->scheduleRepeatingTask(new \MCrafters\TeamPvP\Tasks\GameWaitingTask($this->plugin, $this->m), 15)->getTaskId();
         }
     }
 }
