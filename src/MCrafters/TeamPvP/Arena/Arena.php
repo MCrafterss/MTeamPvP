@@ -43,7 +43,7 @@ class Arena implements Listener {
 
 	}
 
- public function isFriend($p1, $p2)
+ public function isFriend($p1, $p2) : bool
     {
         if ($this->getTeam($p1) === $this->getTeam($p2) && $this->getTeam($p1) !== false) {
             return true;
@@ -63,7 +63,7 @@ class Arena implements Listener {
         }
     }
 
-    public function setTeam($p, $team)
+    public function setTeam($p, $team) : bool
     {
         if (strtolower($team) === "red") {
             if (count($this->reds) < 5) {
@@ -175,7 +175,7 @@ class Arena implements Listener {
     }
 
 
-    public function checkForEnd(Player $player)
+    public function checkForEnd(Player $player) : bool
     {
         $a = array();
         
