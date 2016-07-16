@@ -1,5 +1,5 @@
 name: MTeamPvP
-version: Development version
+version: Development
 api: 2.0.0
 main: MCrafters\TeamPvP\Loader
 author: MCrafters Team
