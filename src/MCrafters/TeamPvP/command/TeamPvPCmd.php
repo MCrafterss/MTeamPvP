@@ -24,6 +24,7 @@ class TeamPvPCmd extends Command{
             case "create":
             case "new":
             case "make":
+            case "mk":
                 if(!(isset($args[1]))) return false;
 
                 if(!$this->plugin->arenaExists($args[1])){
