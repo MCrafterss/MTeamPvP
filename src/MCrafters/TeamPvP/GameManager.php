@@ -13,7 +13,7 @@ class GameManager extends PluginBase
     public $gwt;
     private $plugin;
 
-    public function __construct(MCrafters\TeamPvP\arena\Arena $plugin, MCrafters\TeamPvP\Loader $m){
+    public function __construct(\MCrafters\TeamPvP\arena\Arena $plugin, \MCrafters\TeamPvP\Loader $m){
         $this->plugin = $plugin;
         $this->m = $m;
     }

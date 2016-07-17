@@ -63,7 +63,7 @@ class Arena implements Listener {
         }
     }
 
-    public function setTeam($p, $team) : bool
+    public function setTeam(Player $p, $team)
     {
         if (strtolower($team) === "red") {
             if (count($this->reds) < 5) {
