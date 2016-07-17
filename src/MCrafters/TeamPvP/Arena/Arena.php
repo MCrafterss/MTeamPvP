@@ -22,8 +22,8 @@ class Arena implements Listener {
 	private $plugin;
 	public $yml;
 	public $reds = [];
-    public $blues = [];
-    public $gameStarted = false;
+    	public $blues = [];
+    	public $gameStarted = false;
 	
 
 	public function __construct(string $name, Loader $plugin){
@@ -68,13 +68,7 @@ class Arena implements Listener {
         if (strtolower($team) === "red") {
             if (count($this->reds) < 5) {
                 if ($this->getTeam($p) === "blue") {
-                    unset($this->blues{
-                    array_search(
-                                $p
-                                , 
-                                $this->blues)
-                                
-                    });
+                    unset($this->blues{array_search($p, $this->blues)});
                 }
                 array_push($this->reds, $p);
                 $this->getServer()->getPlayer($p)->setNameTag(Color::BOLD . Color::RED . $p->getName());
@@ -88,11 +82,7 @@ class Arena implements Listener {
         if (strtolower($team) === "blue") {
             if (count($this->blues) < 5) {
                 if ($this->getTeam($p) === "red") {
-                    unset($this->reds{
-                    array_search(
-                                $p
-                                 , 
-                                 $this->reds)});
+                    unset($this->reds{array_search($p, $this->reds)});
                 }
                 array_push($this->blues, $p);
                 $this->getServer()->getPlayer($p)->setNameTag(Color::BOLD . Color::AQUA . $p->getName());
@@ -106,22 +96,10 @@ class Arena implements Listener {
     public function removeFromTeam($p, $team)
     {
         if (strtolower($team) == "red") {
-            unset($this->reds{array_search(
-                $p
-                , 
-                $this->reds)
-                
-            }
-            );
+            unset($this->reds{array_search($p,$this->reds)});
             return true;
         } elseif (strtolower($team) == "blue") {
-            unset($this->blues{array_search(
-            $p
-            ,
-            $this->blues)
-                
-            }
-            );
+            unset($this->blues{array_search($p,$this->blues)});
             return true;
         }
     }
