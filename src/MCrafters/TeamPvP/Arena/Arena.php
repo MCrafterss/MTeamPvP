@@ -177,7 +177,7 @@ class Arena implements Listener {
 
     public function checkForEnd(Player $player) : bool
     {
-        $a = array();
+        $a = [];
         
         if ($this->getTeam($player->getName()) == "red" && $this->gameStarted == true) {
             $this->removeFromTeam($player->getName(), "red");
@@ -189,26 +189,17 @@ class Arena implements Listener {
         foreach ($this->blues as $b) {
             foreach ($this->reds as $r) {
                 if (count($this->reds) == 0 && $this->gameStarted == true) {
-                    $a{
-                        "WON"
-                        
-                    } = "BLUE";
+                    $a[] = "BLUE";
                 }
                 if (count($this->blues) == 0 && $this->gameStarted == true) {
-                    $a{
-                        "WON"
-                        
-                    } = "RED";
+                    $a[] = "RED";
                 }
                 if($a[0] == "BLUE"){
                     $this->removeFromTeam($b, "blue");
                     $this->getServer()->getPlayer($b)->teleport($this->getServer()->getLevelByName($this->yml["spawn_level"])->getSafeSpawn());
                     $this->gameStarted = false;
                     $this->getServer()->broadcastMessage("Blue Team won the game!");
-                $a{
-                    "WON"
-                    
-                } = false;
+                $a[] = false;
                 
                 }else{
                     return false;
@@ -218,14 +209,11 @@ class Arena implements Listener {
                     $this->getServer()->getPlayer($r)->teleport($this->getServer()->getLevelByName($this->yml["spawn_level"])->getSafeSpawn());
                     $this->gameStarted = false;
                     $this->getServer()->broadcastMessage("Red Team won the game!");
-                $a{
-                    "WON"
-                    
-                } = false;
+                $a[] = false;
                 }else{
                     return false;
                 }
-                if($a[0] == false){
+                if($a[1] == false){
                     return;
                 }
             }
