@@ -3,17 +3,12 @@ namespace MCrafters\TeamPvP\Arena;
 
 use pocketmine\event\Listener;
 use pocketmine\Player;
-use pocketmine\utils\TextFormat as Color;
-use pocketmine\utils\Config;
-use pocketmine\event\entity\EntityDamageEvent;
-use pocketmine\event\entity\EntityDamageByEntityEvent;
-use pocketmine\event\player\PlayerDeathEvent;
-use pocketmine\event\player\PlayerInteractEvent;
-use pocketmine\event\player\PlayerQuitEvent;
+use pocketmine\utils\{Config, TextFormat as Color};
+use pocketmine\event\entity\{EntityDamageEvent, EntityDamageByEntityEvent};
+use pocketmine\event\player\{PlayerDeathEvent, PlayerQuitEvent, PlayerInteractEvent};
 use pocketmine\math\Vector3;
 
-use MCrafters\TeamPvP\Loader;
-use MCrafters\TeamPvP\GameManager;
+use MCrafters\TeamPvP\{Loader, GameManager};
 use MCrafters\TeamPvP\Tasks\SignUpdaterTask;
 
 class Arena implements Listener {
