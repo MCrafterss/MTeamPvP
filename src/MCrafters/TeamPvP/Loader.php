@@ -3,7 +3,7 @@ namespace MCrafters\TeamPvP;
 
 /** 
  * @author  MCrafters Team
- * @version 1.0.0
+ * @version 3.5
 **/
 
 use pocketmine\plugin\PluginBase;
