@@ -19,7 +19,7 @@ class Loader extends PluginBase {
 	public $arenas = [];
 
 	public function onEnable(){
-		if(!is_dir($this->getDataFolder()))mkdir($this->getDataFolder());
+		if(!is_dir($this->getDataFolder())) mkdir($this->getDataFolder());
 		if(!is_dir($this->getDataFolder() . "Arena")) mkdir($this->getDataFolder() . "/Arena");
 
 		$this->getServer()->getLogger()->info(Color::BOLD . Color::GOLD . "M" . Color::AQUA . "TeamPvP " . Color::GREEN . "Enabled" . Color::RED . "!");
