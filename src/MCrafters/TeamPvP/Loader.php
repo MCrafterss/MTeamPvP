@@ -46,24 +46,24 @@ class Loader extends PluginBase {
 		return "---
 
 #the positions of the join sign
-sign_join_x: 
-sign_join_y: 
-sign_join_z:
+sign_join_x: 0
+sign_join_y: 0
+sign_join_z: 0
 sign_world: 'world'
 
 #the positions of the team's enter places.
-blue_enter_x: 
-blue_enter_y: 
-blue_enter_z: 
+blue_enter_x: 0
+blue_enter_y: 0
+blue_enter_z: 0
 
-red_enter_x: 
-red_enter_y: 
-red_enter_z: 
+red_enter_x: 0
+red_enter_y: 0
+red_enter_z: 0
 
 #the place when players teleport when the game is going to start soon
-waiting_x: 
-waiting_y: 
-waiting_z: 
+waiting_x: 0
+waiting_y: 0
+waiting_z: 0
 
 #the item ids will be given to the players when the game starts
 items:
