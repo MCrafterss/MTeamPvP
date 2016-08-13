@@ -26,11 +26,11 @@ class Arena implements Listener {
 		$this->plugin = $plugin;
 		$this->yml = $plugin->arenas[$name];
 
-        $level = $this->yml["sign_world"];
+        	$level = $this->yml["sign_world"];
 
-        if(!$this->getServer()->isLevelLoaded($level)){
-            $this->getServer()->loadLevel($level);
-        }
+        	if(!$this->getServer()->isLevelLoaded($level)){
+            		$this->getServer()->loadLevel($level);
+        	}
 
 		$plugin->getServer()->loadLevel($this->yml["world"]);
 
@@ -38,8 +38,7 @@ class Arena implements Listener {
 
 	}
 
- public function isFriend($p1, $p2) : bool
-    {
+ public function isFriend($p1, $p2) : bool{
         if ($this->getTeam($p1) === $this->getTeam($p2) && $this->getTeam($p1) !== false) {
             return true;
         } else {
@@ -47,8 +46,7 @@ class Arena implements Listener {
         }
     }
 
-    public function getTeam($p)
-    {
+    public function getTeam($p){
         if (in_array($p, $this->reds)) {
             return "red";
         } elseif (in_array($p, $this->blues)) {
@@ -58,8 +56,7 @@ class Arena implements Listener {
         }
     }
 
-    public function setTeam(Player $p, $team)
-    {
+    public function setTeam(Player $p, $team){
         if (strtolower($team) === "red") {
             if (count($this->reds) < 5) {
                 if ($this->getTeam($p) === "blue") {
@@ -88,8 +85,7 @@ class Arena implements Listener {
         }
     }
 }
-    public function removeFromTeam($p, $team)
-    {
+    public function removeFromTeam($p, $team){
         if (strtolower($team) == "red") {
             unset($this->reds{array_search($p,$this->reds)});
             return true;
@@ -99,8 +95,7 @@ class Arena implements Listener {
         }
     }
 
-    public function onInteract(PlayerInteractEvent $event)
-    {
+    public function onInteract(PlayerInteractEvent $event){
         $p = $event->getPlayer();
         $teams = array("red", "blue");
         if ($event->getBlock()->getX() === $this->yml["sign_join_x"] && $event->getBlock()->getY() === $this->yml["sign_join_y"] && $event->getBlock()->getZ() === $this->yml["sign_join_z"]) {
@@ -117,8 +112,7 @@ class Arena implements Listener {
         }
     }
 
-    public function onEntityDamage(EntityDamageEvent $event)
-    {
+    public function onEntityDamage(EntityDamageEvent $event)	{
         if ($event instanceof EntityDamageByEntityEvent) {
             if ($event->getEntity() instanceof Player) {
                 if ($this->isFriend($event->getDamager()->getName(), $event->getEntity()->getName()) && $this->gameStarted == true) {
@@ -133,23 +127,20 @@ class Arena implements Listener {
         }
     }
     
-    public function onQuit(PlayerQuitEvent $event)
-    {
+    public function onQuit(PlayerQuitEvent $event){
      if ($this->getTeam($event->getPlayer()->getName()) == "red" || $this->getTeam($event->getPlayer()->getName()) == "blue" && $this->gameStarted == true) {
       $this->checkForEnd($event->getPlayer());
      }
     }
     
     public function onDeath(PlayerDeathEvent $event)
-    {
      if ($this->getTeam($event->getEntity()->getName()) == "red" || $this->getTeam($event->getEntity()->getName()) == "blue" && $this->gameStarted == true) {
       $this->checkForEnd($event->getEntity());
      }
     }
 
 
-    public function checkForEnd(Player $player) : bool
-    {
+    public function checkForEnd(Player $player) : bool{
         $a = [];
         
         if ($this->getTeam($player->getName()) == "red" && $this->gameStarted == true) {
