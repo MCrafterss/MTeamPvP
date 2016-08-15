@@ -133,7 +133,7 @@ class Arena implements Listener {
      }
     }
     
-    public function onDeath(PlayerDeathEvent $event)
+    public function onDeath(PlayerDeathEvent $event){
      if ($this->getTeam($event->getEntity()->getName()) == "red" || $this->getTeam($event->getEntity()->getName()) == "blue" && $this->gameStarted == true) {
       $this->checkForEnd($event->getEntity());
      }
