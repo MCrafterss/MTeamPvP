@@ -1,5 +1,5 @@
 <?php
-namespace MCrafters\TeamPvP\Arena;
+namespace MCrafters\TeamPvP\arena;
 
 use pocketmine\event\Listener;
 use pocketmine\Player;
