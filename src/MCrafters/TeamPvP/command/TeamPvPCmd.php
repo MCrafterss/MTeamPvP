@@ -2,7 +2,7 @@
 namespace MCrafters\TeamPvP\command;
 
 use MCrafters\TeamPvP\Loader;
-use MCrafters\TeamPvP\Arena\Arena;
+use MCrafters\TeamPvP\arena\Arena;
 
 use pocketmine\command\Command;
 use pocketmine\command\CommandSender;
