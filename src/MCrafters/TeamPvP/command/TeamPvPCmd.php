@@ -13,7 +13,7 @@ class TeamPvPCmd extends Command{
     private $plugin;
 
     public function __construct(Loader $plugin){
-        parent::__construct($plugin->getConfig()->get("command", "mteampvp"), "MTeamPvP Main Command", null, ["mtp", "tpvp"]);
+        parent::__construct("mteampvp", "MTeamPvP Main Command", null, ["mtp", "tpvp"]);
         $this->plugin = $plugin;
     }
     
