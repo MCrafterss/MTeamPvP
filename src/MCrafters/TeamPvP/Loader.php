@@ -21,10 +21,11 @@ class Loader extends PluginBase {
 	public function onEnable(){
 		if(!is_dir($this->getDataFolder())) mkdir($this->getDataFolder());
 		if(!is_dir($this->getDataFolder() . "Arena")) mkdir($this->getDataFolder() . "/Arena");
+		$this->saveDefaultConfig();
 
 		$this->getServer()->getLogger()->info(Color::BOLD . Color::GOLD . "M" . Color::AQUA . "TeamPvP " . Color::GREEN . "Enabled" . Color::RED . "!");
 
-		$this->getServer()->getCommandMap()->register("mteampvp", new TeamPvPCmd($this));
+		$this->getServer()->getCommandMap()->register($this->getConfig()->get("command", "mteampvp"), new TeamPvPCmd($this));
 		$this->runArenas();
 	}
 
