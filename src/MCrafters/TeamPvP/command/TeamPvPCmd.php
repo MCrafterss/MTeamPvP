@@ -55,6 +55,9 @@ class TeamPvPCmd extends Command{
                 $sender->sendMessage("[MTeamPvP] Arena does not exist.");
 
             break;
+            default:
+                $sender->sendMessage("[MTeamPvP] Please provide an existing subcommand.");
+                break;
         }
     }
 }
